@@ -1,10 +1,11 @@
 import React from "react";
 import "./App.css";
+import LoginContainer from "./components/login-signup/LoginContainer";
 
 function App() {
   return (
     <div className="App">
-      <h2>Hello world</h2>
+      <LoginContainer />
     </div>
   );
 }
