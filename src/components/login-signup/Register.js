@@ -1,8 +1,9 @@
 import React from "react";
 import useForm from "../../hooks/useForm";
+import Auth from "../../services/Auth";
 import signUpFormValidation from "../../services/signUpFormValidations";
 import { connect } from "react-redux";
-import axios from "axios";
+import { Link } from "react-router-dom";
 import "./login.css";
 
 const INITIAL_STATE = {
@@ -24,19 +25,20 @@ function Register() {
   } = useForm(INITIAL_STATE, signUpFormValidation, loginSubmit);
 
   function loginSubmit() {
-    axios
-      .post("http://localhost:3001/api/v1/signup", {
-        user: {
-          first_name: values.first_name,
-          last_name: values.last_name,
-          email: values.email,
-          password: values.password,
-          password_confirmation: values.password_confirmation,
-        },
+    const {
+      first_name,
+      last_name,
+      email,
+      password,
+      password_confirmation,
+    } = values;
+    Auth.auth
+      .signup(first_name, last_name, email, password, password_confirmation)
+      .then((user) => {
+        console.log(user);
+        localStorage.setItem("jwt", user.data.token);
       })
-      .then((res) => res.data)
-      .then((user) => console.log(user))
-      .catch((error) => console.log(error));
+      .catch((err) => console.log(err));
   }
   return (
     <div className="form-container">
@@ -44,7 +46,7 @@ function Register() {
       <span className="span-title">
         You don’t think you should login first and behave like human not robot.
       </span>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="ui form">
         <input
           type="text"
           placeholder="First name"
@@ -101,6 +103,9 @@ function Register() {
         {errors.password_confirmation && (
           <p className="error-text">{errors.password_confirmation}</p>
         )}
+        <br />
+        Already have an account? <Link to="/login">Sign in instead</Link>
+        <br />
         <button type="submit" value="Submit">
           Create account
         </button>

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import validateForm from "../../services/validateForm";
+import Auth from "../../services/Auth";
 import useForm from "../../hooks/useForm";
 import { connect } from "react-redux";
-import axios from "axios";
+import { Link, Redirect } from "react-router-dom";
 import "./login.css";
 
 const INITIAL_STATE = {
@@ -11,6 +12,7 @@ const INITIAL_STATE = {
 };
 
 function Login() {
+  const [error, setError] = useState(false);
   const {
     handleSubmit,
     handleChange,
@@ -18,19 +20,22 @@ function Login() {
     values,
     errors,
     isSubmitting,
-  } = useForm(INITIAL_STATE, validateForm, loginSubmit);
+  } = useForm(INITIAL_STATE, validateForm, submitLogin);
 
-  function loginSubmit() {
-    axios
-      .post("http://localhost:3001/api/v1/login", {
-        user: {
-          email: values.email,
-          password: values.password,
-        },
+  function submitLogin() {
+    Auth.auth
+      .login(values.email, values.password)
+      .then((res) => {
+        if (res.error) {
+          setError(true);
+        } else {
+          localStorage.setItem("jwt", res.data.token);
+          return <Redirect to="/" />;
+        }
       })
-      .then((res) => res.data)
-      .then((user) => console.log(user))
-      .catch((error) => console.log(error));
+      .catch((err) => {
+        console.log(err);
+      });
   }
   return (
     <div className="form-container">
@@ -60,6 +65,8 @@ function Login() {
           onBlur={handleBlur}
         />{" "}
         {errors.password && <p className="error-text">{errors.password}</p>}
+        <br />
+        You are new? <Link to="/signup">Create account</Link>
         <br />
         <button type="submit" value="Submit">
           Submit
