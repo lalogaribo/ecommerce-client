@@ -9,8 +9,8 @@ const useForm = (initialState, validate, callback) => {
     if (isSubmitting) {
       const noErrors = Object.keys(errors).length === 0;
       if (noErrors) {
-        console.log("authenticated!", values.email, values.password);
-        callback();
+        console.log(values);
+        // callback();
         setSubmitting(false);
       } else {
         setSubmitting(false);
@@ -32,11 +32,10 @@ const useForm = (initialState, validate, callback) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("desde el reducer");
     const validationErrors = validate(values);
     setErrors(validationErrors);
-    callback();
     setSubmitting(true);
+    callback();
   }
 
   return {

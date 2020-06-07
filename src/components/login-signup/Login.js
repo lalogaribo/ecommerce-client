@@ -1,6 +1,8 @@
 import React from "react";
-import validateForm from "../../helpers/validateForm";
-import userForm from "../../hooks/useForm";
+import validateForm from "../../services/validateForm";
+import useForm from "../../hooks/useForm";
+import { connect } from "react-redux";
+import axios from "axios";
 import "./login.css";
 
 const INITIAL_STATE = {
@@ -8,7 +10,7 @@ const INITIAL_STATE = {
   password: "",
 };
 
-export default function Login() {
+function Login() {
   const {
     handleSubmit,
     handleChange,
@@ -16,10 +18,19 @@ export default function Login() {
     values,
     errors,
     isSubmitting,
-  } = userForm(INITIAL_STATE, validateForm, login);
+  } = useForm(INITIAL_STATE, validateForm, loginSubmit);
 
-  function login() {
-    console.log("submited");
+  function loginSubmit() {
+    axios
+      .post("http://localhost:3001/api/v1/login", {
+        user: {
+          email: values.email,
+          password: values.password,
+        },
+      })
+      .then((res) => res.data)
+      .then((user) => console.log(user))
+      .catch((error) => console.log(error));
   }
   return (
     <div className="form-container">
@@ -57,3 +68,11 @@ export default function Login() {
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state,
+  };
+}
+
+export default connect(mapStateToProps)(Login);
