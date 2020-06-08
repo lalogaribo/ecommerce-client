@@ -4,6 +4,7 @@ import Auth from "../../services/Auth";
 import signUpFormValidation from "../../services/signUpFormValidations";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import "./login.css";
 
 const INITIAL_STATE = {
@@ -14,7 +15,7 @@ const INITIAL_STATE = {
   last_name: "",
 };
 
-function Register() {
+function Register(props) {
   const {
     handleSubmit,
     handleChange,
@@ -37,6 +38,10 @@ function Register() {
       .then((user) => {
         console.log(user);
         localStorage.setItem("jwt", user.data.token);
+
+        setTimeout(() => {
+          props.history.push("/");
+        }, 2000);
       })
       .catch((err) => console.log(err));
   }
@@ -121,4 +126,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps)(withRouter(Register));

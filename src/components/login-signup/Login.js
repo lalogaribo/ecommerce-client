@@ -4,6 +4,7 @@ import Auth from "../../services/Auth";
 import useForm from "../../hooks/useForm";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
+import { withRouter } from "react-router";
 import "./login.css";
 
 const INITIAL_STATE = {
@@ -11,7 +12,7 @@ const INITIAL_STATE = {
   password: "",
 };
 
-function Login() {
+function Login(props) {
   const [error, setError] = useState(false);
   const {
     handleSubmit,
@@ -30,16 +31,19 @@ function Login() {
           setError(true);
         } else {
           localStorage.setItem("jwt", res.data.token);
-          return <Redirect to="/" />;
+          setTimeout(() => {
+            props.history.push("/");
+          }, 2000);
         }
       })
       .catch((err) => {
-        console.log(err);
+        setError(true);
       });
   }
   return (
     <div className="form-container">
       <h2>Login</h2>
+      {error && <h3>Upss! something went wrong, try again</h3>}
       <span className="span-title">
         You don’t think you should login first and behave like human not robot.
       </span>
@@ -82,4 +86,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(withRouter(Login));

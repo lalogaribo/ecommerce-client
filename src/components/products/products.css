@@ -1,0 +1,15 @@
+.product-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 10px;
+}
+
+.product-card {
+  margin: 10px;
+}
+
+.product-detail-container {
+  margin-left: 20px;
+  margin-top: 20px;
+}
