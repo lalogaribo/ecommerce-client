@@ -1,8 +1,14 @@
-let initialState = {
-  date: new Date().toISOString().slice(0, 10),
+import { SET_USER_DATA } from "../actiontypes";
+
+export const initialState = {
+  isLoggedIn: false,
+  user: {},
 };
 
 export function userReducer(state = initialState, action) {
-  console.log("calling state");
+  switch (action.type) {
+    case SET_USER_DATA:
+      return { ...state, user: action.user, isLoggedIn: true };
+  }
   return state;
 }
