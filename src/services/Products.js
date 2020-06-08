@@ -6,6 +6,12 @@ const headers = {
   Accept: "application/json",
 };
 
+const adminHeaders = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
+  Authorization: token,
+};
+
 const getAllProducts = () => {
   return fetch(`${URL}/products`, {
     headers: headers,

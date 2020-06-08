@@ -1,16 +1,13 @@
-import { FETCH_USER } from "../actiontypes";
+import { SET_USER_DATA } from "../actiontypes";
+
 export const initialState = {
   isLoggedIn: false,
-  userId: "",
-  token: "",
-  refreshToken: "",
-  expiresOn: "",
   user: {},
 };
 
 export function userReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_USER:
+    case SET_USER_DATA:
       return { ...state, user: action.user, isLoggedIn: true };
   }
   return state;

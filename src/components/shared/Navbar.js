@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Menu, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   state = { activeItem: "home" };
-
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
@@ -34,8 +34,25 @@ export default class Navbar extends Component {
               onClick={this.handleItemClick}
             />
           </Link>
+          {this.props.user.isLoggedIn && this.props.user.user.is_admin && (
+            <>
+              <Link>
+                <Menu.Item
+                  name="Create product"
+                  active={activeItem === "create product"}
+                  onClick={this.handleItemClick}
+                />
+              </Link>
+            </>
+          )}
         </Menu>
       </Segment>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return { user: state.user };
+}
+
+export default connect(mapStateToProps)(Navbar);

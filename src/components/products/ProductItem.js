@@ -10,7 +10,7 @@ const extra = (item) => (
 );
 
 const ProductItem = ({
-  product: { id, name, description, price, time_to_make },
+  product: { id, name, description, price, time_to_make, image },
   product,
 }) => {
   return (
@@ -24,7 +24,7 @@ const ProductItem = ({
         }}
       >
         <Card
-          image="https://images.unsplash.com/photo-1575540325855-4b5d285a3845?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+          image={image}
           header={name}
           meta={`Estimation days: ${time_to_make} `}
           description={description}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import validateForm from "../../services/validateForm";
 import Auth from "../../services/Auth";
+import { signIn } from "../../actions/signIn";
 import useForm from "../../hooks/useForm";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
 };
 
 function Login(props) {
+  console.log(props);
   const [error, setError] = useState(false);
   const {
     handleSubmit,
@@ -24,21 +26,7 @@ function Login(props) {
   } = useForm(INITIAL_STATE, validateForm, submitLogin);
 
   function submitLogin() {
-    Auth.auth
-      .login(values.email, values.password)
-      .then((res) => {
-        if (res.error) {
-          setError(true);
-        } else {
-          localStorage.setItem("jwt", res.data.token);
-          setTimeout(() => {
-            props.history.push("/");
-          }, 2000);
-        }
-      })
-      .catch((err) => {
-        setError(true);
-      });
+    props.signIn(values.email, values.password, props.history);
   }
   return (
     <div className="form-container">
@@ -80,10 +68,12 @@ function Login(props) {
   );
 }
 
-function mapStateToProps(state) {
+const mapDispatchToProps = (dispatch) => {
   return {
-    user: state,
+    signIn: (email, password, history) => {
+      dispatch(signIn(email, password, history));
+    },
   };
-}
+};
 
-export default connect(mapStateToProps)(withRouter(Login));
+export default connect(null, mapDispatchToProps)(withRouter(Login));

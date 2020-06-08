@@ -1,11 +1,18 @@
 import React, { Component } from "react";
-
-export default class Home extends Component {
-  render() {
-    return (
-      <div>
-        <h2>Home page</h2>
-      </div>
-    );
-  }
+import { connect } from "react-redux";
+function Home(props) {
+  return (
+    <div>
+      <h2>Home page</h2>
+      Welcome {props.user.user.first_name}
+    </div>
+  );
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+
+export default connect(mapStateToProps)(Home);
