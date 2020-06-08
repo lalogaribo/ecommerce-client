@@ -20,6 +20,37 @@ export const signIn = (email, password, history) => {
       .then((res) => res.data)
       .then((user) => {
         console.log(user.data);
+        localStorage.setItem("jwt", user.data.token);
+        dispatch(fetchUser(user.data.user));
+        history.push("/");
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const signUp = (
+  first_name,
+  last_name,
+  email,
+  password,
+  password_confirmation,
+  history
+) => {
+  return (dispatch) => {
+    axios
+      .post("http://localhost:3001/api/v1/signup", {
+        user: {
+          first_name,
+          last_name,
+          email,
+          password,
+          password_confirmation,
+        },
+      })
+      .then((res) => res.data)
+      .then((user) => {
+        console.log(user.data);
+        localStorage.setItem("jwt", user.data.token);
         dispatch(fetchUser(user.data.user));
         history.push("/");
       })

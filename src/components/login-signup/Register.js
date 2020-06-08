@@ -1,10 +1,10 @@
 import React from "react";
 import useForm from "../../hooks/useForm";
-import Auth from "../../services/Auth";
 import signUpFormValidation from "../../services/signUpFormValidations";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
+import { signUp } from "../../actions/signIn";
 import "./login.css";
 
 const INITIAL_STATE = {
@@ -33,17 +33,15 @@ function Register(props) {
       password,
       password_confirmation,
     } = values;
-    Auth.auth
-      .signup(first_name, last_name, email, password, password_confirmation)
-      .then((user) => {
-        console.log(user);
-        localStorage.setItem("jwt", user.data.token);
 
-        setTimeout(() => {
-          props.history.push("/");
-        }, 2000);
-      })
-      .catch((err) => console.log(err));
+    props.signUp(
+      first_name,
+      last_name,
+      email,
+      password,
+      password_confirmation,
+      props.history
+    );
   }
   return (
     <div className="form-container">
@@ -63,6 +61,7 @@ function Register(props) {
         />{" "}
         <br />
         {errors.first_name && <p className="error-text">{errors.first_name}</p>}
+        <br />
         <input
           type="text"
           placeholder="Last name"
@@ -74,6 +73,7 @@ function Register(props) {
         />{" "}
         <br />
         {errors.last_name && <p className="error-text">{errors.last_name}</p>}
+        <br />
         <input
           type="text"
           placeholder="Email address"
@@ -85,6 +85,7 @@ function Register(props) {
         />{" "}
         <br />
         {errors.email && <p className="error-text">{errors.email}</p>}
+        <br />
         <input
           type="password"
           placeholder="Set password"
@@ -94,6 +95,7 @@ function Register(props) {
           onChange={handleChange}
           onBlur={handleBlur}
         />{" "}
+        <br />
         {errors.password && <p className="error-text">{errors.password}</p>}
         <br />
         <input
@@ -105,6 +107,7 @@ function Register(props) {
           onChange={handleChange}
           onBlur={handleBlur}
         />{" "}
+        <br />
         {errors.password_confirmation && (
           <p className="error-text">{errors.password_confirmation}</p>
         )}
@@ -119,11 +122,28 @@ function Register(props) {
   );
 }
 
-function mapStateToProps(state) {
-  console.log(state);
+const mapDispatchToProps = (dispatch) => {
   return {
-    user: state,
+    signUp: (
+      first_name,
+      last_name,
+      email,
+      password,
+      password_confirmation,
+      history
+    ) => {
+      dispatch(
+        signUp(
+          first_name,
+          last_name,
+          email,
+          password,
+          password_confirmation,
+          history
+        )
+      );
+    },
   };
-}
+};
 
-export default connect(mapStateToProps)(withRouter(Register));
+export default connect(null, mapDispatchToProps)(withRouter(Register));

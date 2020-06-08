@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import validateForm from "../../services/validateForm";
-import Auth from "../../services/Auth";
 import { signIn } from "../../actions/signIn";
 import useForm from "../../hooks/useForm";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import "./login.css";
 
@@ -14,7 +13,6 @@ const INITIAL_STATE = {
 };
 
 function Login(props) {
-  console.log(props);
   const [error, setError] = useState(false);
   const {
     handleSubmit,
