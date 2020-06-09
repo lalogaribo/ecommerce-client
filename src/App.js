@@ -9,6 +9,7 @@ import Navbar from "./components/shared/Navbar";
 import ProductContainer from "./components/products/ProductContainer";
 import ProductDetail from "./components/products/ProductDetail";
 import ProductForm from "./components/products/ProductForm";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/products" exact component={ProductContainer} />
         <Route path="/products/:id" component={ProductDetail} />
         <Route path="/new-product" component={ProductForm} />
+        <Route path="/about-us" component={AboutUs} />
       </div>
     </BrowserRouter>
   );

@@ -27,7 +27,7 @@ class Navbar extends Component {
               onClick={this.handleItemClick}
             />
           </Link>
-          <Link>
+          <Link to="/about-us">
             <Menu.Item
               name="about us"
               active={activeItem === "about us"}
@@ -36,7 +36,7 @@ class Navbar extends Component {
           </Link>
           {this.props.user.isLoggedIn && this.props.user.user.is_admin && (
             <>
-              <Link>
+              <Link to="/new-product">
                 <Menu.Item
                   name="Create product"
                   active={activeItem === "create product"}
@@ -44,6 +44,23 @@ class Navbar extends Component {
                 />
               </Link>
             </>
+          )}
+          {!localStorage.getItem("jwt") ? (
+            <Link to="/login">
+              <Menu.Item
+                name="sign in"
+                active={activeItem === "sign in"}
+                onClick={this.handleItemClick}
+              />
+            </Link>
+          ) : (
+            <Link to="/logout">
+              <Menu.Item
+                name="Logout"
+                active={activeItem === "logout"}
+                onClick={this.handleItemClick}
+              />
+            </Link>
           )}
         </Menu>
       </Segment>

@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import validateProduct from "../../services/validateProduct";
 import useForm from "../../hooks/useForm";
 import Type from "../../services/Type";
+import Products from "../../services/Products";
+import Toastr from "../../services/Toastr";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./products.css";
 
 const INITIAL_STATE = {
@@ -20,7 +24,6 @@ export default function ProductForm() {
 
   useEffect(() => {
     Type.types.getTypes().then((types) => {
-      console.log(types.data);
       setTypes(types.data);
     });
   }, []);
@@ -34,7 +37,25 @@ export default function ProductForm() {
   } = useForm(INITIAL_STATE, validateProduct, createProduct);
 
   function createProduct() {
-    console.log("submiting");
+    const { name, quantity, price, time_to_make, description, image } = values;
+    Products.products
+      .createProduct(
+        name,
+        description,
+        price,
+        quantity,
+        time_to_make,
+        image,
+        typeId
+      )
+      .then((product) => {
+        if (product.errors) {
+          Toastr.toast.errorToast();
+          return;
+        } else {
+          Toastr.toast.successToast();
+        }
+      });
   }
 
   function handleSelect(event) {
@@ -45,6 +66,7 @@ export default function ProductForm() {
 
   return (
     <div className="form-container">
+      <ToastContainer />
       <h2>Product form</h2>
       <form class="ui form" onSubmit={handleSubmit}>
         <input

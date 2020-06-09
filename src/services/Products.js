@@ -18,6 +18,32 @@ const getAllProducts = () => {
   }).then((resp) => resp.json());
 };
 
+const createProduct = (
+  name,
+  description,
+  price,
+  quantity,
+  time_to_make,
+  image,
+  type_id
+) => {
+  return fetch(`${URL}/users/6/products`, {
+    method: "POST",
+    headers: adminHeaders,
+    body: JSON.stringify({
+      product: {
+        name,
+        description,
+        price,
+        quantity,
+        time_to_make,
+        image,
+        type_id,
+      },
+    }),
+  }).then((resp) => resp.json());
+};
+
 export default {
-  products: { getAllProducts },
+  products: { getAllProducts, createProduct },
 };
