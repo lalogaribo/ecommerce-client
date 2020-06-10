@@ -12,6 +12,7 @@ const extra = (item) => (
 const ProductItem = ({
   product: { id, name, description, price, time_to_make, image },
   product,
+  user,
 }) => {
   return (
     <div className="product-card">
@@ -31,6 +32,18 @@ const ProductItem = ({
           extra={extra(price)}
         />
       </Link>
+      {product.user_id === user.user.id && (
+        <Link
+          to={{
+            pathname: `/users/${user.user.id}/products/${id}`,
+            state: {
+              product: product,
+            },
+          }}
+        >
+          Edit item
+        </Link>
+      )}
     </div>
   );
 };
