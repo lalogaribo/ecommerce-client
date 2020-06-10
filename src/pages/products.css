@@ -1,0 +1,65 @@
+.product-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 10px;
+}
+
+.form-container {
+  width: 50%;
+  height: 300px;
+  margin-left: 100px;
+  margin: auto;
+  margin-top: 170px;
+}
+
+.product-card {
+  margin: 10px;
+}
+
+.product-detail-container {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+
+input {
+  width: 300px;
+  font-size: 1.5rem;
+  padding: 0.25em;
+  margin-top: 0.5em;
+  border-radius: 5px;
+}
+
+button {
+  width: 250px;
+  background: rgb(237, 240, 60);
+  font-size: 1.3rem;
+  margin: 1em;
+  padding: 0.2em 0.5em;
+  height: 50px;
+  border-radius: 10px;
+  box-shadow: 4px 5px #888888;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #f5eeee8e;
+}
+
+.error-input {
+  border: 2px solid red;
+  border-radius: 4px;
+}
+
+.error-text {
+  margin: 0.25em 0 0 0;
+  padding: 0;
+  color: red;
+  font-style: bold;
+  font-size: 1.2rem;
+}
+
+.span-title {
+  font-size: 10px;
+}

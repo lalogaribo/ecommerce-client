@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
-const errorToast = () => {
-  toast.error("An error occur, check your data", {
+const errorToast = (message) => {
+  toast.error(message, {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -11,8 +11,8 @@ const errorToast = () => {
   });
 };
 
-const successToast = () => {
-  toast.success("Product created succesfully", {
+const successToast = (message) => {
+  toast.success(message, {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,

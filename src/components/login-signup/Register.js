@@ -49,7 +49,7 @@ function Register(props) {
       <span className="span-title">
         You don’t think you should login first and behave like human not robot.
       </span>
-      <form onSubmit={handleSubmit} className="ui form">
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="First name"
@@ -100,7 +100,7 @@ function Register(props) {
         <br />
         <input
           type="password"
-          placeholder="Set password"
+          placeholder="Confirm password"
           name="password_confirmation"
           className={errors.password_confirmation && "error-input"}
           value={values.password_confirmation}

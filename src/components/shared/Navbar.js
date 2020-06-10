@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Menu, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 class Navbar extends Component {
@@ -8,6 +9,7 @@ class Navbar extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
+    const { history } = this.props;
     const { activeItem } = this.state;
 
     return (
@@ -58,7 +60,11 @@ class Navbar extends Component {
               <Menu.Item
                 name="Logout"
                 active={activeItem === "logout"}
-                onClick={this.handleItemClick}
+                onClick={() => {
+                  localStorage.removeItem("jwt");
+                  window.location.reload();
+                  history.push("/login");
+                }}
               />
             </Link>
           )}
@@ -72,4 +78,4 @@ function mapStateToProps(state) {
   return { user: state.user };
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps)(withRouter(Navbar));

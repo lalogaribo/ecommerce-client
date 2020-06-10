@@ -9,6 +9,7 @@ import Navbar from "./components/shared/Navbar";
 import ProductContainer from "./components/products/ProductContainer";
 import ProductDetail from "./components/products/ProductDetail";
 import ProductForm from "./components/products/ProductForm";
+import ProductUpdateForm from "./components/products/ProducUpdateForm";
 import AboutUs from "./pages/AboutUs";
 
 function App() {
@@ -20,7 +21,11 @@ function App() {
         <Route path="/signup" component={Register} />
         <Route path="/login" component={Login} />
         <Route path="/products" exact component={ProductContainer} />
-        <Route path="/products/:id" component={ProductDetail} />
+        <Route path="/products/:id" exact component={ProductDetail} />
+        <Route
+          path="/users/:user_id/products/:id"
+          component={ProductUpdateForm}
+        />
         <Route path="/new-product" component={ProductForm} />
         <Route path="/about-us" component={AboutUs} />
       </div>

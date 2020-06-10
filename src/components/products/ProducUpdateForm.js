@@ -8,20 +8,30 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./products.css";
 
-const INITIAL_STATE = {
-  name: "",
-  quantity: "",
-  price: "",
-  time_to_make: "",
-  description: "",
-  image: "",
-};
-
-export default function ProductForm() {
+export default function ProductUpdateForm(props) {
   const adminHeaders = {
     "Content-Type": "application/json",
     Accept: "application/json",
     Authorization: localStorage.getItem("jwt"),
+  };
+
+  const {
+    name,
+    quantity,
+    price,
+    time_to_make,
+    description,
+    image,
+    user_id,
+    id,
+  } = props.location.state.product;
+  const INITIAL_STATE = {
+    name,
+    quantity,
+    price,
+    time_to_make,
+    description,
+    image,
   };
 
   const [value, setValue] = useState("");
@@ -40,12 +50,12 @@ export default function ProductForm() {
     values,
     errors,
     isSubmitting,
-  } = useForm(INITIAL_STATE, validateProduct, createProduct);
+  } = useForm(INITIAL_STATE, validateProduct, updateProduct);
 
-  function createProduct() {
+  function updateProduct() {
     const { name, quantity, price, time_to_make, description, image } = values;
     Products.products
-      .createProduct(
+      .updateProduct(
         name,
         description,
         price,
@@ -53,14 +63,16 @@ export default function ProductForm() {
         time_to_make,
         image,
         typeId,
+        user_id,
+        id,
         adminHeaders
       )
       .then((product) => {
-        if (product.error) {
-          Toastr.toast.errorToast(product.error);
+        if (product.errors || product.error) {
+          Toastr.toast.errorToast("Unable to update product");
           return;
         } else {
-          Toastr.toast.successToast("Product created successfully");
+          Toastr.toast.successToast("Product updated successfully");
         }
       });
   }

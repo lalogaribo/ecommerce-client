@@ -1,10 +1,11 @@
 import React, { useState, useEffect, Fragment } from "react";
+import { connect } from "react-redux";
 import Products from "../../services/Products";
 import ProductItem from "./ProductItem";
 import "./products.css";
-import { Loader } from "semantic-ui-react";
+import Spinner from "../shared/Spinner";
 
-export default function ProductContainer() {
+function ProductContainer({ user }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -20,11 +21,13 @@ export default function ProductContainer() {
       <h2>Products</h2>
       <div className="product-container">
         {loading ? (
-          <Loader />
+          <Spinner />
         ) : (
           <Fragment>
             {products.map((product) => {
-              return <ProductItem key={product.id} product={product} />;
+              return (
+                <ProductItem key={product.id} product={product} user={user} />
+              );
             })}
           </Fragment>
         )}
@@ -32,3 +35,9 @@ export default function ProductContainer() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { user: state.user };
+};
+
+export default connect(mapStateToProps)(ProductContainer);
