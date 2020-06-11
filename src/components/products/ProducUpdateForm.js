@@ -9,6 +9,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./products.css";
 
 export default function ProductUpdateForm(props) {
+  console.log(props);
+  const { history } = props;
   const adminHeaders = {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -73,6 +75,10 @@ export default function ProductUpdateForm(props) {
           return;
         } else {
           Toastr.toast.successToast("Product updated successfully");
+          history.push({
+            pathname: `/products/${id}`,
+            state: { product: product },
+          });
         }
       });
   }

@@ -11,12 +11,6 @@ const headers = {
   Accept: "application/json",
 };
 
-const adminHeaders = {
-  "Content-Type": "application/json",
-  Accept: "application/json",
-  Authorization: localStorage.getItem("jwt"),
-};
-
 const getAllProducts = () => {
   return fetch(`${URL}/products`, {
     headers: headers,
@@ -31,9 +25,10 @@ const createProduct = (
   time_to_make,
   image,
   type_id,
-  requestHeaders
+  requestHeaders,
+  user_id
 ) => {
-  return fetch(`${URL}/users/6/products`, {
+  return fetch(`${URL}/users/${user_id}/products`, {
     method: "POST",
     headers: requestHeaders,
     body: JSON.stringify({
@@ -60,7 +55,8 @@ const updateProduct = (
   type_id,
   user_id,
   product_id,
-  requestHeaders
+  requestHeaders,
+  history
 ) => {
   return fetch(`${URL}/users/${user_id}/products/${product_id}`, {
     method: "PATCH",

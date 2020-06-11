@@ -56,13 +56,12 @@ class Navbar extends Component {
               />
             </Link>
           ) : (
-            <Link to="/logout">
+            <Link>
               <Menu.Item
                 name="Logout"
                 active={activeItem === "logout"}
                 onClick={() => {
                   localStorage.removeItem("jwt");
-                  window.location.reload();
                   history.push("/login");
                 }}
               />

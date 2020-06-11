@@ -1,26 +1,25 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import Products from "../../services/Products";
+import { getAllProducts } from "../../actions/products";
 import ProductItem from "./ProductItem";
-import "./products.css";
 import Spinner from "../shared/Spinner";
+import "./products.css";
 
-function ProductContainer({ user }) {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+function ProductContainer({ user, getAllProducts, productsStore }) {
+  const [loadProducts, setLoadProducts] = useState(false);
+  const { products, isLoading } = productsStore;
   useEffect(() => {
-    setLoading(true);
-    Products.products.getAllProducts().then((products) => {
-      setLoading(false);
-      setProducts(products);
-    });
-  }, []);
+    if (productsStore.products.length === 0) {
+      setLoadProducts(true);
+      getAllProducts();
+    }
+  }, [loadProducts]);
 
   return (
     <div>
       <h2>Products</h2>
       <div className="product-container">
-        {loading ? (
+        {isLoading ? (
           <Spinner />
         ) : (
           <Fragment>
@@ -37,7 +36,14 @@ function ProductContainer({ user }) {
 }
 
 const mapStateToProps = (state) => {
-  return { user: state.user };
+  return { user: state.user, productsStore: state.products };
 };
 
-export default connect(mapStateToProps)(ProductContainer);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAllProducts: () => {
+      dispatch(getAllProducts());
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductContainer);

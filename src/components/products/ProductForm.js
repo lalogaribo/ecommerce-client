@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import validateProduct from "../../services/validateProduct";
 import useForm from "../../hooks/useForm";
 import Type from "../../services/Type";
 import Products from "../../services/Products";
 import Toastr from "../../services/Toastr";
 import { ToastContainer, toast } from "react-toastify";
+import { newProduct } from "../../actions/products";
 import "react-toastify/dist/ReactToastify.css";
 import "./products.css";
 
@@ -17,7 +19,7 @@ const INITIAL_STATE = {
   image: "",
 };
 
-export default function ProductForm() {
+function ProductForm({ newProduct, user }) {
   const adminHeaders = {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -33,6 +35,7 @@ export default function ProductForm() {
       setTypes(types.data);
     });
   }, []);
+
   const {
     handleSubmit,
     handleChange,
@@ -44,25 +47,17 @@ export default function ProductForm() {
 
   function createProduct() {
     const { name, quantity, price, time_to_make, description, image } = values;
-    Products.products
-      .createProduct(
-        name,
-        description,
-        price,
-        quantity,
-        time_to_make,
-        image,
-        typeId,
-        adminHeaders
-      )
-      .then((product) => {
-        if (product.error) {
-          Toastr.toast.errorToast(product.error);
-          return;
-        } else {
-          Toastr.toast.successToast("Product created successfully");
-        }
-      });
+    newProduct(
+      name,
+      description,
+      price,
+      quantity,
+      time_to_make,
+      image,
+      typeId,
+      adminHeaders,
+      user.user.id
+    );
   }
 
   function handleSelect(event) {
@@ -168,3 +163,40 @@ export default function ProductForm() {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    newProduct: (
+      name,
+      description,
+      price,
+      quantity,
+      time_to_make,
+      image,
+      type_id,
+      requestHeaders,
+      user_id
+    ) => {
+      dispatch(
+        newProduct(
+          name,
+          description,
+          price,
+          quantity,
+          time_to_make,
+          image,
+          type_id,
+          requestHeaders,
+          user_id
+        )
+      );
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductForm);
