@@ -1,10 +1,13 @@
+import Toastr from "../services/Toastr";
+import axios from "axios";
 import {
   START_FETCHING_PRODUCTS,
   FETCHING_PRODUCTS_SUCCESS,
   SET_PRODUCTS,
   CREATE_PRODUCT,
+  START_PRODUCT_UPDATE,
+  UPDATE_PRODUCT_SUCCESS,
 } from "../actiontypes/index";
-import axios from "axios";
 
 const URL = `http://localhost:3001/api/v1`;
 
@@ -36,6 +39,19 @@ export const createProduct = (product) => {
   return {
     type: CREATE_PRODUCT,
     product,
+  };
+};
+
+export const startUpdateProduct = () => {
+  return {
+    type: START_PRODUCT_UPDATE,
+  };
+};
+
+export const updatedCompleted = (id, data) => {
+  return {
+    type: UPDATE_PRODUCT_SUCCESS,
+    payload: { id, data },
   };
 };
 
@@ -82,11 +98,56 @@ export const newProduct = (
       },
     })
       .then((product) => {
-        console.log(product.data.product);
         dispatch(createProduct(product.data.product));
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+};
+
+export const updateProduct = (
+  name,
+  description,
+  price,
+  quantity,
+  time_to_make,
+  image,
+  type_id,
+  user_id,
+  product_id,
+  requestHeaders,
+  history
+) => {
+  return (dispatch) => {
+    dispatch(startUpdateProduct());
+    axios(`${URL}/users/${user_id}/products/${product_id}`, {
+      method: "PATCH",
+      headers: requestHeaders,
+      data: {
+        product: {
+          name,
+          description,
+          price,
+          quantity,
+          time_to_make,
+          image,
+          type_id,
+        },
+      },
+    }).then((updatedProduct) => {
+      if (updatedProduct.status === 200) {
+        dispatch(updatedCompleted(product_id, updatedProduct.data));
+        Toastr.toast.successToast("Product updated successfully");
+        history.push({
+          pathname: `/products/${product_id}`,
+          state: {
+            product: updatedProduct.data,
+          },
+        });
+      } else {
+        Toastr.toast.errorToast("An error occur, chek your data");
+      }
+    });
   };
 };
