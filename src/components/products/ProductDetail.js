@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import AdminLinks from "../shared/AdminLinks";
 
 const ProductDetail = (props) => {
-  console.log(props);
   const {
     name,
     description,

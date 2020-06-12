@@ -19,7 +19,6 @@ export const signIn = (email, password, history) => {
       })
       .then((res) => res.data)
       .then((user) => {
-        console.log(user.data);
         localStorage.setItem("jwt", user.data.token);
         dispatch(fetchUser(user.data.user));
         history.push("/");

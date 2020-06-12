@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router";
 import validateProduct from "../../services/validateProduct";
 import useForm from "../../hooks/useForm";
 import Type from "../../services/Type";
-import Products from "../../services/Products";
-import Toastr from "../../services/Toastr";
 import { ToastContainer, toast } from "react-toastify";
+import { updateProduct } from "../../actions/products";
 import "react-toastify/dist/ReactToastify.css";
 import "./products.css";
 
-export default function ProductUpdateForm(props) {
+function ProductUpdateForm({ updateProduct, history, location }) {
   const adminHeaders = {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -24,7 +25,7 @@ export default function ProductUpdateForm(props) {
     image,
     user_id,
     id,
-  } = props.location.state.product;
+  } = location.state.product;
   const INITIAL_STATE = {
     name,
     quantity,
@@ -50,31 +51,23 @@ export default function ProductUpdateForm(props) {
     values,
     errors,
     isSubmitting,
-  } = useForm(INITIAL_STATE, validateProduct, updateProduct);
+  } = useForm(INITIAL_STATE, validateProduct, productUpdate);
 
-  function updateProduct() {
+  function productUpdate() {
     const { name, quantity, price, time_to_make, description, image } = values;
-    Products.products
-      .updateProduct(
-        name,
-        description,
-        price,
-        quantity,
-        time_to_make,
-        image,
-        typeId,
-        user_id,
-        id,
-        adminHeaders
-      )
-      .then((product) => {
-        if (product.errors || product.error) {
-          Toastr.toast.errorToast("Unable to update product");
-          return;
-        } else {
-          Toastr.toast.successToast("Product updated successfully");
-        }
-      });
+    updateProduct(
+      name,
+      description,
+      price,
+      quantity,
+      time_to_make,
+      image,
+      typeId,
+      user_id,
+      id,
+      adminHeaders,
+      history
+    );
   }
 
   function handleSelect(event) {
@@ -180,3 +173,48 @@ export default function ProductUpdateForm(props) {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateProduct: (
+      name,
+      description,
+      price,
+      quantity,
+      time_to_make,
+      image,
+      type_id,
+      user_id,
+      product_id,
+      requestHeaders,
+      history
+    ) => {
+      dispatch(
+        updateProduct(
+          name,
+          description,
+          price,
+          quantity,
+          time_to_make,
+          image,
+          type_id,
+          user_id,
+          product_id,
+          requestHeaders,
+          history
+        )
+      );
+    },
+  };
+};
+
+const mapStateToProps = (state) => {
+  return {
+    products: state.product,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(ProductUpdateForm));

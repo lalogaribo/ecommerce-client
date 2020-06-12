@@ -1,6 +1,6 @@
 import { SET_USER_DATA } from "../actiontypes";
 
-export const initialState = {
+const initialState = {
   isLoggedIn: false,
   user: {},
 };
