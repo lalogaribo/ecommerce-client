@@ -1,5 +1,23 @@
+.main-container {
+  display: grid;
+  grid-template-areas: "sidebar content";
+  grid-template-columns: 300px auto;
+  gap: 5rem;
+}
+
+.card-items {
+  display: grid;
+  grid-area: content;
+  grid-template-columns: repeat(auto-fill, 300px)
+}
+
+.sidebar {
+  grid-area: sidebar;
+  margin-left: 20px;
+}
+
 .product-container {
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   margin-left: 10px;
@@ -23,15 +41,15 @@
 }
 
 
-input {
+/* input {
   width: 300px;
   font-size: 1.5rem;
   padding: 0.25em;
   margin-top: 0.5em;
   border-radius: 5px;
-}
+} */
 
-button {
+/* button {
   width: 250px;
   background: rgb(237, 240, 60);
   font-size: 1.3rem;
@@ -40,7 +58,7 @@ button {
   height: 50px;
   border-radius: 10px;
   box-shadow: 4px 5px #888888;
-}
+} */
 
 button:hover {
   cursor: pointer;

@@ -7,6 +7,7 @@ import {
   CREATE_PRODUCT,
   START_PRODUCT_UPDATE,
   UPDATE_PRODUCT_SUCCESS,
+  SET_CATEGORY,
 } from "../actiontypes/index";
 
 const URL = `http://localhost:3001/api/v1`;
@@ -35,6 +36,12 @@ const completedFetchingProducts = () => {
   };
 };
 
+const setCategory = (type) => {
+  return {
+    type: SET_CATEGORY,
+    payload: { category: type },
+  };
+};
 export const createProduct = (product) => {
   return {
     type: CREATE_PRODUCT,
@@ -63,6 +70,22 @@ export const getAllProducts = () => {
         headers: headers,
       })
       .then((products) => {
+        dispatch(setProducts(products.data));
+        dispatch(completedFetchingProducts());
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const getProductsByCategory = (type) => {
+  return (dispatch) => {
+    dispatch(startFetchingProducts());
+    axios
+      .get(`${URL}/products/?type=${type}`, {
+        headers: headers,
+      })
+      .then((products) => {
+        dispatch(setCategory(type));
         dispatch(setProducts(products.data));
         dispatch(completedFetchingProducts());
       })

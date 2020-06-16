@@ -5,6 +5,11 @@ import useForm from "../../hooks/useForm";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
 import "./login.css";
 
 const INITIAL_STATE = {
@@ -13,7 +18,6 @@ const INITIAL_STATE = {
 };
 
 function Login(props) {
-  const [error, setError] = useState(false);
   const {
     handleSubmit,
     handleChange,
@@ -27,41 +31,49 @@ function Login(props) {
     props.signIn(values.email, values.password, props.history);
   }
   return (
-    <div className="form-container">
-      <h2>Login</h2>
-      {error && <h3>Upss! something went wrong, try again</h3>}
-      <span className="span-title">
-        You don’t think you should login first and behave like human not robot.
-      </span>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Email address"
-          name="email"
-          value={values.email}
-          className={errors.email && "error-input"}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />{" "}
-        <br />
-        {errors.email && <p className="error-text">{errors.email}</p>}
-        <input
-          type="password"
-          placeholder="Set password"
-          name="password"
-          className={errors.password && "error-input"}
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />{" "}
-        {errors.password && <p className="error-text">{errors.password}</p>}
-        <br />
-        You are new? <Link to="/signup">Create account</Link>
-        <br />
-        <button type="submit" value="Submit">
-          Submit
-        </button>
-      </form>
+    <div>
+      <Grid container spacing={2}>
+        <Grid item xs={9}>
+          <img
+            src={process.env.PUBLIC_URL + "/img/stickerbanner.png"}
+            className="login-img"
+          />
+        </Grid>
+        <Grid item xs={3} style={{ margin: "auto" }}>
+          <Typography variant="subtitle1" gutterBottom>
+            <h1 className="header">Login</h1>
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Email address"
+              name="email"
+              value={values.email}
+              className={errors.email && "error-input"}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />{" "}
+            <br />
+            {errors.email && <p className="error-text">{errors.email}</p>}
+            <input
+              type="password"
+              placeholder="Set password"
+              name="password"
+              className={errors.password && "error-input"}
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />{" "}
+            {errors.password && <p className="error-text">{errors.password}</p>}
+            <br />
+            You are new? <Link to="/signup">Create account</Link>
+            <br />
+            <button type="submit" value="Submit">
+              Submit
+            </button>
+          </form>
+        </Grid>
+      </Grid>
     </div>
   );
 }

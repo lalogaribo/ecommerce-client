@@ -1,9 +1,12 @@
 import React from "react";
 import { Item } from "semantic-ui-react";
 import { connect } from "react-redux";
+import { ADD_ITEM_TO_CART } from "../../actiontypes";
 import AdminLinks from "../shared/AdminLinks";
+import { Link } from "react-router-dom";
 
 const ProductDetail = (props) => {
+  console.log();
   const {
     name,
     description,
@@ -32,12 +35,30 @@ const ProductDetail = (props) => {
         props.user.user.id === props.location.state.product.user_id && (
           <AdminLinks product={props.location.state.product} />
         )}
+      <button
+        onClick={() => {
+          props.dispatch({
+            type: ADD_ITEM_TO_CART,
+            payload: props.location.state.product,
+          });
+        }}
+      >
+        Add cart
+      </button>
+      {props.cart.cart.length > 0 && <Link to="/cart">My cart</Link>}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { user: state.user };
+  return { user: state.user, cart: state.cart };
 };
+
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   console.log
+//   return {
+//     addItemToCart: () => dispatch({ type: ADD_ITEM_TO_CART, payload }),
+//   };
+// };
 
 export default connect(mapStateToProps)(ProductDetail);

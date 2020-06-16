@@ -3,12 +3,14 @@ import { Menu, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 class Navbar extends Component {
   state = { activeItem: "home" };
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
+    console.log(this.props.cart);
     const { history } = this.props;
     const { activeItem } = this.state;
 
@@ -36,6 +38,7 @@ class Navbar extends Component {
               onClick={this.handleItemClick}
             />
           </Link>
+
           {this.props.user.isLoggedIn && this.props.user.user.is_admin && (
             <>
               <Link to="/new-product">
@@ -46,6 +49,11 @@ class Navbar extends Component {
                 />
               </Link>
             </>
+          )}
+          {this.props.cart.length > 0 && (
+            <Link to="/cart">
+              <ShoppingCartIcon style={{ fontSize: 30 }} />
+            </Link>
           )}
           {!localStorage.getItem("jwt") ? (
             <Link to="/login">
@@ -74,7 +82,7 @@ class Navbar extends Component {
 }
 
 function mapStateToProps(state) {
-  return { user: state.user };
+  return { user: state.user, cart: state.cart.cart };
 }
 
 export default connect(mapStateToProps)(withRouter(Navbar));

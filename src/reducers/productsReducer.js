@@ -5,11 +5,13 @@ import {
   START_PRODUCT_UPDATE,
   UPDATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT,
+  SET_CATEGORY,
 } from "../actiontypes";
 
 const initialState = {
   isLoading: false,
   products: [],
+  category: "",
 };
 
 export function productsReducer(state = initialState, action) {
@@ -28,11 +30,12 @@ export function productsReducer(state = initialState, action) {
           ? (product = action.payload.data)
           : product;
       });
-
       return { ...state, isLoading: false, products: updatedProducts };
     case CREATE_PRODUCT:
       let newState = [...state.products, action.product];
       return { ...state, products: newState };
+    case SET_CATEGORY:
+      return { ...state, category: action.payload.category };
     default:
       return { ...state };
   }

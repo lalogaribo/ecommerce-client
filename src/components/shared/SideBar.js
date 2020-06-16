@@ -1,44 +1,76 @@
 // import { useBooleanKnob } from "@stardust-ui/docs-components";
-import React, { useState } from "react";
-import { Header, Icon, Image, Menu, Segment, Sidebar } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { getProductsByCategory } from "../../actions/products";
+import { connect } from "react-redux";
+import "./shared.css";
 
-const SideBar = () => {
-  const [visible, setVisible] = useState(true);
+const SideBar = ({ getProductsByCategory }) => {
+  const [type, setType] = useState("");
 
+  useEffect(() => {
+    getProductsByCategory(type);
+  }, [type]);
+
+  const handleChange = (e) => {
+    setType(e.target.name);
+  };
   return (
-    <Sidebar.Pushable as={Segment}>
-      <Sidebar
-        as={Menu}
-        animation="overlay"
-        icon="labeled"
-        inverted
-        onHide={() => setVisible(false)}
-        vertical
-        visible={visible}
-        width="thin"
+    <div className="sidebar">
+      <button className="sidebar-option" name="Stickers" onClick={handleChange}>
+        Stickers
+      </button>
+      <button className="sidebar-option" name="Shirts" onClick={handleChange}>
+        Shirts
+      </button>
+      <button className="sidebar-option" name="Dress" onClick={handleChange}>
+        Dress
+      </button>
+      <button className="sidebar-option" name="Buttons" onClick={handleChange}>
+        Buttons
+      </button>
+      <button
+        className="sidebar-option"
+        name="Posters/Prints"
+        onClick={handleChange}
       >
-        <Menu.Item as="a">
-          <Icon name="home" />
-          Home
-        </Menu.Item>
-        <Menu.Item as="a">
-          <Icon name="gamepad" />
-          Games
-        </Menu.Item>
-        <Menu.Item as="a">
-          <Icon name="camera" />
-          Channels
-        </Menu.Item>
-      </Sidebar>
-
-      <Sidebar.Pusher>
-        <Segment basic>
-          <Header as="h3">Application Content</Header>
-          <Image src="/images/wireframe/paragraph.png" />
-        </Segment>
-      </Sidebar.Pusher>
-    </Sidebar.Pushable>
+        Posters/Prints
+      </button>
+      <button
+        className="sidebar-option"
+        name="Custome_others"
+        onClick={handleChange}
+      >
+        Custome others
+      </button>
+      <button className="sidebar-option" name="Pants" onClick={handleChange}>
+        Pants
+      </button>
+      <button
+        className="sidebar-option"
+        name="Outfit_dolls"
+        onClick={handleChange}
+      >
+        Outfit dolls
+      </button>
+      <button
+        className="sidebar-option"
+        name="Hair_bows"
+        onClick={handleChange}
+      >
+        Hair bows
+      </button>
+      <button className="sidebar-option" name="Pins" onClick={handleChange}>
+        Pins
+      </button>
+    </div>
   );
 };
 
-export default SideBar;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getProductsByCategory: (type) => {
+      dispatch(getProductsByCategory(type));
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(SideBar);

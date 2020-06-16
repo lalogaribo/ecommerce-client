@@ -11,6 +11,8 @@ import ProductDetail from "./components/products/ProductDetail";
 import ProductForm from "./components/products/ProductForm";
 import ProductUpdateForm from "./components/products/ProducUpdateForm";
 import AboutUs from "./pages/AboutUs";
+import CartContainer from "./components/Cart/CartContainer";
+import Footer from "./components/shared/Footer";
 
 function App() {
   return (
@@ -28,7 +30,9 @@ function App() {
         />
         <Route path="/new-product" component={ProductForm} />
         <Route path="/about-us" component={AboutUs} />
+        <Route path="/cart" component={CartContainer} />
       </div>
+      <Footer />
     </BrowserRouter>
   );
 }
