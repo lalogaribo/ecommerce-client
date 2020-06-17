@@ -71,7 +71,7 @@ function ProductForm({ newProduct, user }) {
         <AdminSideBar />
       </div>
       <div className="container">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} id="form-container">
           <input
             type="text"
             placeholder="Product name"
@@ -80,6 +80,7 @@ function ProductForm({ newProduct, user }) {
             className={errors.name && "error-input"}
             onChange={handleChange}
             onBlur={handleBlur}
+            id="inputs"
           />{" "}
           <br />
           {errors.name && <p className="error-text">{errors.name}</p>}
@@ -122,21 +123,10 @@ function ProductForm({ newProduct, user }) {
             <br />
             {errors.time_to_make && (
               <p className="error-text">{errors.time_to_make}</p>
-            )}
-            {types.length > 0 && (
-              <>
-                <select
-                  value={value}
-                  onChange={handleSelect}
-                  className="ui selection dropdown"
-                >
-                  {types.map((type) => {
-                    return <option value={type.name}>{type.name}</option>;
-                  })}
-                </select>
-              </>
-            )}
+            )}{" "}
             <br />
+          </div>
+          <div className="options">
             <input
               type="text"
               placeholder="Set price"
@@ -159,10 +149,23 @@ function ProductForm({ newProduct, user }) {
               onBlur={handleBlur}
             />{" "}
           </div>
+          {types.length > 0 && (
+            <>
+              <select
+                value={value}
+                onChange={handleSelect}
+                className="ui selection dropdown"
+              >
+                {types.map((type) => {
+                  return <option value={type.name}>{type.name}</option>;
+                })}
+              </select>
+            </>
+          )}
           <br />
           {errors.image && <p className="error-text">{errors.image}</p>}
           <button type="submit" class="button">
-            Submit
+            Create product
           </button>
         </form>
       </div>

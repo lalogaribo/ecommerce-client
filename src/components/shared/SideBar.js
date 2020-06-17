@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { getProductsByCategory } from "../../actions/products";
 import { connect } from "react-redux";
 import "./shared.css";
+import Filters from "./Filters";
 
 const SideBar = ({ getProductsByCategory, user, isLogged }) => {
   const [type, setType] = useState("");
@@ -71,6 +72,8 @@ const SideBar = ({ getProductsByCategory, user, isLogged }) => {
           </Link>
         </>
       )}
+      <hr />
+      <Filters />
     </div>
   );
 };

@@ -37,14 +37,18 @@
   margin-top: 170px;
 }
 
-/* input {
+#inputs {
   width: 700px;
   height: 40px;
   background: #F9F7F7;
   border-radius: 10px;
   margin-bottom: 5px;
-} */
+}
 
+#search {
+  width: 100%;
+  padding: 5px;
+}
 
 textarea {
   width: 700px;
@@ -53,13 +57,18 @@ textarea {
 
 .options {
   display: flex;
-  width: 100px;
-  justify-content: start;
+  width: auto;
   flex-direction: row;
+  margin: 10px;
 }
 
 .product-card {
   margin: 10px;
+}
+
+#form-container {
+  width: 80%;
+
 }
 
 .product-detail-container {

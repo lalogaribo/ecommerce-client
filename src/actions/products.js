@@ -8,6 +8,9 @@ import {
   START_PRODUCT_UPDATE,
   UPDATE_PRODUCT_SUCCESS,
   SET_CATEGORY,
+  SET_MIN_PRICE,
+  SET_MAX_PRICE,
+  SET_KEYWORD,
 } from "../actiontypes/index";
 
 const URL = `http://localhost:3001/api/v1`;
@@ -40,6 +43,27 @@ const setCategory = (type) => {
   return {
     type: SET_CATEGORY,
     payload: { category: type },
+  };
+};
+
+const setMinPrice = (price) => {
+  return {
+    type: SET_MIN_PRICE,
+    payload: { min_price: price },
+  };
+};
+
+const setMaxPrice = (price) => {
+  return {
+    type: SET_MAX_PRICE,
+    payload: { max_price: price },
+  };
+};
+
+const setKeyword = (keyword) => {
+  return {
+    type: SET_KEYWORD,
+    payload: { keyword: keyword },
   };
 };
 export const createProduct = (product) => {
@@ -86,6 +110,54 @@ export const getProductsByCategory = (type) => {
       })
       .then((products) => {
         dispatch(setCategory(type));
+        dispatch(setProducts(products.data));
+        dispatch(completedFetchingProducts());
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const getProductsByMinPrice = (price) => {
+  return (dispatch) => {
+    dispatch(startFetchingProducts());
+    axios
+      .get(`${URL}/products/?min_price=${price}`, {
+        headers: headers,
+      })
+      .then((products) => {
+        dispatch(setMinPrice(price));
+        dispatch(setProducts(products.data));
+        dispatch(completedFetchingProducts());
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const getProductsByMaxPrice = (price) => {
+  return (dispatch) => {
+    dispatch(startFetchingProducts());
+    axios
+      .get(`${URL}/products/?max_price=${price}`, {
+        headers: headers,
+      })
+      .then((products) => {
+        dispatch(setMaxPrice(price));
+        dispatch(setProducts(products.data));
+        dispatch(completedFetchingProducts());
+      })
+      .catch((error) => console.log(error));
+  };
+};
+
+export const getProductsByKeyword = (keyword) => {
+  return (dispatch) => {
+    dispatch(startFetchingProducts());
+    axios
+      .get(`${URL}/products/?keyword=${keyword}`, {
+        headers: headers,
+      })
+      .then((products) => {
+        dispatch(setKeyword(keyword));
         dispatch(setProducts(products.data));
         dispatch(completedFetchingProducts());
       })

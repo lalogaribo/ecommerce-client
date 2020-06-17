@@ -9,10 +9,12 @@ import "./products.css";
 function ProductContainer({ user, getAllProducts, productsStore }) {
   const [loadProducts, setLoadProducts] = useState(false);
   const { products, isLoading } = productsStore;
+  console.log(productsStore);
   useEffect(() => {
     if (productsStore.products.length === 0) {
       setLoadProducts(true);
       getAllProducts();
+      setLoadProducts(false);
     }
   }, [loadProducts]);
 
@@ -22,7 +24,6 @@ function ProductContainer({ user, getAllProducts, productsStore }) {
         <SideBar />
       </div>
       <div className="card-items">
-        {productsStore.products.length === 0 && <h1>No items were found</h1>}
         {isLoading ? (
           <Spinner />
         ) : (
@@ -40,6 +41,9 @@ function ProductContainer({ user, getAllProducts, productsStore }) {
                 </>
               );
             })}
+            {productsStore.products.length === 0 && (
+              <h1>No items were found</h1>
+            )}
           </Fragment>
         )}
       </div>

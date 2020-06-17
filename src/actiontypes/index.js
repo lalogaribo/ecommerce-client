@@ -13,6 +13,9 @@ export const UPDATE_PRODUCT_SUCCESS = "UPDATE_PRODUCT_SUCCESS";
 export const START_PRODUCT_UPDATE = "START_PRODUCT_UPDATE";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const SET_CATEGORY = "SET_CATEGORY";
+export const SET_MIN_PRICE = "SET_MIN_PRICE";
+export const SET_MAX_PRICE = "SET_MAX_PRICE";
+export const SET_KEYWORD = "SET_KEYWORD";
 
 // Cart actions
 export const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
