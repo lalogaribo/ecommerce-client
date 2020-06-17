@@ -1,10 +1,11 @@
 // import { useBooleanKnob } from "@stardust-ui/docs-components";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getProductsByCategory } from "../../actions/products";
 import { connect } from "react-redux";
 import "./shared.css";
 
-const SideBar = ({ getProductsByCategory }) => {
+const SideBar = ({ getProductsByCategory, user, isLogged }) => {
   const [type, setType] = useState("");
 
   useEffect(() => {
@@ -62,6 +63,14 @@ const SideBar = ({ getProductsByCategory }) => {
       <button className="sidebar-option" name="Pins" onClick={handleChange}>
         Pins
       </button>
+      {isLogged && user.is_admin && (
+        <>
+          <hr />
+          <Link to="/new-product">
+            <button className="sidebar-option">Create product</button>
+          </Link>
+        </>
+      )}
     </div>
   );
 };
@@ -73,4 +82,11 @@ const mapDispatchToProps = (dispatch) => {
     },
   };
 };
-export default connect(null, mapDispatchToProps)(SideBar);
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user,
+    isLogged: state.user.isLoggedIn,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

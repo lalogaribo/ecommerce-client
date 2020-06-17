@@ -3,6 +3,7 @@
   grid-template-areas: "sidebar content";
   grid-template-columns: 300px auto;
   gap: 5rem;
+
 }
 
 .card-items {
@@ -14,6 +15,7 @@
 .sidebar {
   grid-area: sidebar;
   margin-left: 20px;
+  max-height: 700px;
 }
 
 .product-container {
@@ -21,6 +23,11 @@
   display: flex;
   flex-wrap: wrap;
   margin-left: 10px;
+}
+
+.container {
+
+  grid-area: content;
 }
 
 .form-container {
@@ -31,6 +38,29 @@
   margin-top: 170px;
 }
 
+div.container,
+input {
+  width: 700px;
+  height: 40px;
+  background: #F9F7F7;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
+
+textarea {
+  width: 700px;
+  height: 100px;
+}
+
+div.options,
+input {
+  display: flex;
+  width: 100px;
+  justify-content: start;
+  flex-direction: row;
+}
+
 .product-card {
   margin: 10px;
 }
@@ -39,26 +69,6 @@
   margin-left: 20px;
   margin-top: 20px;
 }
-
-
-/* input {
-  width: 300px;
-  font-size: 1.5rem;
-  padding: 0.25em;
-  margin-top: 0.5em;
-  border-radius: 5px;
-} */
-
-/* button {
-  width: 250px;
-  background: rgb(237, 240, 60);
-  font-size: 1.3rem;
-  margin: 1em;
-  padding: 0.2em 0.5em;
-  height: 50px;
-  border-radius: 10px;
-  box-shadow: 4px 5px #888888;
-} */
 
 button:hover {
   cursor: pointer;
