@@ -59,7 +59,7 @@ function Register(props) {
         </Grid>
         <Grid item xs={3} style={{ margin: "auto" }}>
           <Typography variant="subtitle1" gutterBottom>
-            <h2 className="header">Create an account, it's free :)</h2>
+            <h2 className="header">Create account</h2>
           </Typography>
           <form onSubmit={handleSubmit}>
             <input
@@ -71,11 +71,9 @@ function Register(props) {
               onChange={handleChange}
               onBlur={handleBlur}
             />{" "}
-            <br />
             {errors.first_name && (
               <p className="error-text">{errors.first_name}</p>
             )}
-            <br />
             <input
               type="text"
               placeholder="Last name"
@@ -85,11 +83,9 @@ function Register(props) {
               onChange={handleChange}
               onBlur={handleBlur}
             />{" "}
-            <br />
             {errors.last_name && (
               <p className="error-text">{errors.last_name}</p>
             )}
-            <br />
             <input
               type="text"
               placeholder="Email address"
@@ -99,9 +95,7 @@ function Register(props) {
               onChange={handleChange}
               onBlur={handleBlur}
             />{" "}
-            <br />
             {errors.email && <p className="error-text">{errors.email}</p>}
-            <br />
             <input
               type="password"
               placeholder="Set password"
@@ -111,9 +105,7 @@ function Register(props) {
               onChange={handleChange}
               onBlur={handleBlur}
             />{" "}
-            <br />
             {errors.password && <p className="error-text">{errors.password}</p>}
-            <br />
             <input
               type="password"
               placeholder="Confirm password"

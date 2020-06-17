@@ -1,9 +1,10 @@
 input {
-  width: 100%;
-  height: 56;
+  width: 300px;
+  height: 50px;
   background: rgba(196, 196, 196, 0.31);
   border: 1px solid #000000;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 button {
@@ -12,6 +13,10 @@ button {
   border-radius: 10px;
   box-shadow: 4px 5px #888888;
 }
+
+/* .form-container {
+  margin-right: 20px;
+} */
 
 button:hover {
   cursor: pointer;
@@ -49,6 +54,5 @@ button:hover {
   font-weight: bold;
   font-size: 35px;
   line-height: 35px;
-
   color: #000000;
 }

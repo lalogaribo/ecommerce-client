@@ -18,16 +18,15 @@
   max-height: 700px;
 }
 
+.container {
+  grid-area: content;
+}
+
 .product-container {
   width: 90%;
   display: flex;
   flex-wrap: wrap;
   margin-left: 10px;
-}
-
-.container {
-
-  grid-area: content;
 }
 
 .form-container {
@@ -38,14 +37,13 @@
   margin-top: 170px;
 }
 
-div.container,
-input {
+/* input {
   width: 700px;
   height: 40px;
   background: #F9F7F7;
   border-radius: 10px;
   margin-bottom: 5px;
-}
+} */
 
 
 textarea {
@@ -53,8 +51,7 @@ textarea {
   height: 100px;
 }
 
-div.options,
-input {
+.options {
   display: flex;
   width: 100px;
   justify-content: start;

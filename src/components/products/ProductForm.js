@@ -71,7 +71,7 @@ function ProductForm({ newProduct, user }) {
         <AdminSideBar />
       </div>
       <div className="container">
-        <form onSubmit={handleSubmit} className="form-container">
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Product name"

@@ -49,6 +49,7 @@ function Login(props) {
               className={errors.email && "error-input"}
               onChange={handleChange}
               onBlur={handleBlur}
+              id="input"
             />{" "}
             <br />
             {errors.email && <p className="error-text">{errors.email}</p>}
@@ -60,6 +61,7 @@ function Login(props) {
               value={values.password}
               onChange={handleChange}
               onBlur={handleBlur}
+              id="input"
             />{" "}
             {errors.password && <p className="error-text">{errors.password}</p>}
             <br />
