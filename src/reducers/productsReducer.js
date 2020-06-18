@@ -5,11 +5,19 @@ import {
   START_PRODUCT_UPDATE,
   UPDATE_PRODUCT_SUCCESS,
   CREATE_PRODUCT,
+  SET_CATEGORY,
+  SET_MIN_PRICE,
+  SET_MAX_PRICE,
+  SET_KEYWORD,
 } from "../actiontypes";
 
 const initialState = {
   isLoading: false,
   products: [],
+  category: "",
+  minPrice: 0,
+  maxPrice: 0,
+  keyword: "",
 };
 
 export function productsReducer(state = initialState, action) {
@@ -28,11 +36,18 @@ export function productsReducer(state = initialState, action) {
           ? (product = action.payload.data)
           : product;
       });
-
       return { ...state, isLoading: false, products: updatedProducts };
     case CREATE_PRODUCT:
       let newState = [...state.products, action.product];
       return { ...state, products: newState };
+    case SET_CATEGORY:
+      return { ...state, category: action.payload.category };
+    case SET_MIN_PRICE:
+      return { ...state, minPrice: action.payload.min_price };
+    case SET_MAX_PRICE:
+      return { ...state, maxPrice: action.payload.max_price };
+    case SET_KEYWORD:
+      return { ...state, keyword: action.payload.keyword };
     default:
       return { ...state };
   }

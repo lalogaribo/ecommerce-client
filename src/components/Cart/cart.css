@@ -1,0 +1,14 @@
+.cart-container {
+  background: #f9f7f7;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.line {
+  width: 1057px;
+}
+
+.total {
+  text-align: right;
+  margin-right: 10px;
+}
