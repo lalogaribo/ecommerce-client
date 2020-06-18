@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import AdminLinks from "../shared/AdminLinks";
 
 const ProductDetail = (props) => {
-  console.log(props.user);
   const { isLoggedIn } = props.user;
   const {
     name,

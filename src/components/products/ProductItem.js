@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Card, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import { ADD_ITEM_TO_CART } from "../../actiontypes";
 
 const extra = (item) => (
   <a>
@@ -13,6 +15,7 @@ const ProductItem = ({
   product: { id, name, description, price, time_to_make, image },
   product,
   user,
+  dispatch,
 }) => {
   return (
     <div className="product-card">
@@ -44,8 +47,23 @@ const ProductItem = ({
           Edit item
         </Link>
       )}
+      {user.isLoggedIn && (
+        <button
+          onClick={() => {
+            dispatch({
+              type: ADD_ITEM_TO_CART,
+              payload: product,
+            });
+          }}
+        >
+          Add cart
+        </button>
+      )}
     </div>
   );
 };
 
-export default ProductItem;
+const mapStateToProps = (state) => {
+  return { user: state.user, cart: state.cart };
+};
+export default connect(mapStateToProps)(ProductItem);
