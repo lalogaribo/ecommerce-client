@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/lalogaribo/ecommerce-client/static/css/main.63964166.chunk.css",
+    "main.js": "/lalogaribo/ecommerce-client/static/js/main.f1135602.chunk.js",
+    "main.js.map": "/lalogaribo/ecommerce-client/static/js/main.f1135602.chunk.js.map",
+    "runtime-main.js": "/lalogaribo/ecommerce-client/static/js/runtime-main.6dabcaee.js",
+    "runtime-main.js.map": "/lalogaribo/ecommerce-client/static/js/runtime-main.6dabcaee.js.map",
+    "static/css/2.6d95d677.chunk.css": "/lalogaribo/ecommerce-client/static/css/2.6d95d677.chunk.css",
+    "static/js/2.6f533840.chunk.js": "/lalogaribo/ecommerce-client/static/js/2.6f533840.chunk.js",
+    "static/js/2.6f533840.chunk.js.map": "/lalogaribo/ecommerce-client/static/js/2.6f533840.chunk.js.map",
+    "index.html": "/lalogaribo/ecommerce-client/index.html",
+    "precache-manifest.96ef07fc7c9e2267c702b6b8c88294f5.js": "/lalogaribo/ecommerce-client/precache-manifest.96ef07fc7c9e2267c702b6b8c88294f5.js",
+    "service-worker.js": "/lalogaribo/ecommerce-client/service-worker.js",
+    "static/css/2.6d95d677.chunk.css.map": "/lalogaribo/ecommerce-client/static/css/2.6d95d677.chunk.css.map",
+    "static/css/main.63964166.chunk.css.map": "/lalogaribo/ecommerce-client/static/css/main.63964166.chunk.css.map",
+    "static/js/2.6f533840.chunk.js.LICENSE.txt": "/lalogaribo/ecommerce-client/static/js/2.6f533840.chunk.js.LICENSE.txt",
+    "static/media/semantic.min.css": "/lalogaribo/ecommerce-client/static/media/outline-icons.ef60a4f6.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6dabcaee.js",
+    "static/css/2.6d95d677.chunk.css",
+    "static/js/2.6f533840.chunk.js",
+    "static/css/main.63964166.chunk.css",
+    "static/js/main.f1135602.chunk.js"
+  ]
+}
