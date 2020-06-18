@@ -12,7 +12,7 @@ const extra = (item) => (
 );
 
 const ProductItem = ({
-  product: { id, name, description, price, time_to_make, image },
+  product: { id, name, description, price, time_to_make, image, user_id },
   product,
   user,
   dispatch,
@@ -47,7 +47,7 @@ const ProductItem = ({
           Edit item
         </Link>
       )}
-      {user.isLoggedIn && (
+      {user.isLoggedIn && user.user.id !== user_id && (
         <button
           onClick={() => {
             dispatch({

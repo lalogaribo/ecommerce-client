@@ -193,9 +193,15 @@ export const newProduct = (
       },
     })
       .then((product) => {
-        dispatch(createProduct(product.data.product));
+        if (product.status === 201) {
+          Toastr.toast.successToast("✅ Product Created successfully");
+          dispatch(createProduct(product.data.product));
+        } else {
+          Toastr.toast.errorToast("🛑 An error occur");
+        }
       })
       .catch((error) => {
+        Toastr.toast.errorToast("🛑 An error occur");
         console.log(error);
       });
   };
@@ -230,19 +236,21 @@ export const updateProduct = (
           type_id,
         },
       },
-    }).then((updatedProduct) => {
-      if (updatedProduct.status === 200) {
-        dispatch(updatedCompleted(product_id, updatedProduct.data));
-        Toastr.toast.successToast("Product updated successfully");
-        history.push({
-          pathname: `/products/${product_id}`,
-          state: {
-            product: updatedProduct.data,
-          },
-        });
-      } else {
-        Toastr.toast.errorToast("An error occur, chek your data");
-      }
-    });
+    })
+      .then((updatedProduct) => {
+        if (updatedProduct.status === 200) {
+          dispatch(updatedCompleted(product_id, updatedProduct.data));
+          Toastr.toast.successToast("✅ Product updated successfully");
+          history.push({
+            pathname: `/products/${product_id}`,
+            state: {
+              product: updatedProduct.data,
+            },
+          });
+        } else {
+          Toastr.toast.errorToast("🛑 An error occur, chek your data");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 };
