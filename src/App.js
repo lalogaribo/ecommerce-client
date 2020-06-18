@@ -22,6 +22,18 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <div className="App">
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        {/* Same as */}
         <ToastContainer />
         <Switch>
           <Route path="/" exact component={Home} />
