@@ -1,4 +1,4 @@
-import { SET_USER_DATA } from "../actiontypes";
+import { SET_USER_DATA } from "../../actiontypes";
 
 const initialState = {
   isLoggedIn: false,

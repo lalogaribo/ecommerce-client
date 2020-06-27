@@ -9,7 +9,7 @@ import {
   SET_MIN_PRICE,
   SET_MAX_PRICE,
   SET_KEYWORD,
-} from "../actiontypes";
+} from "../../actiontypes/";
 
 const initialState = {
   isLoading: false,

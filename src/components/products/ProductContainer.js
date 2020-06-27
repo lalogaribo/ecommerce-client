@@ -9,12 +9,11 @@ import "./products.css";
 function ProductContainer({ user, getAllProducts, productsStore }) {
   const [loadProducts, setLoadProducts] = useState(false);
   const { products, isLoading } = productsStore;
-  console.log(productsStore);
+
   useEffect(() => {
     if (productsStore.products.length === 0) {
       setLoadProducts(true);
       getAllProducts();
-      setLoadProducts(false);
     }
   }, [loadProducts]);
 

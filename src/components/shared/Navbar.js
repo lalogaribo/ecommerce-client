@@ -10,7 +10,6 @@ class Navbar extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    console.log(this.props.cart);
     const { history } = this.props;
     const { activeItem } = this.state;
 
@@ -51,7 +50,7 @@ class Navbar extends Component {
             </>
           )}
           {this.props.cart.length > 0 && (
-            <Link to="/cart">
+            <Link to="/checkout">
               <ShoppingCartIcon style={{ fontSize: 30 }} />
             </Link>
           )}

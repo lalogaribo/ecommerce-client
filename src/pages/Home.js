@@ -6,7 +6,8 @@ function Home({ user }) {
   return (
     <div>
       <h2>Home page</h2>
-      {user.isLoggedIn ? (
+      {!user.isLoggedIn && <h1>Login to see your profile</h1>}
+      {user.isLoggedIn && user.user.is_admin && (
         <>
           <h1>Welcome Back {user.user.first_name}</h1>
           <h3>Current listing products</h3>
@@ -19,8 +20,12 @@ function Home({ user }) {
             })}
           </div>
         </>
-      ) : (
-        <h1>Sign in to see your profile</h1>
+      )}
+      {user.isLoggedIn && (
+        <>
+          <h1>Welcome Back {user.user.first_name}</h1>
+          <h3>Your previous orders</h3>
+        </>
       )}
     </div>
   );
