@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import validateForm from "../../services/validateForm";
-import { signIn } from "../../actions/signIn";
+// import { signIn } from "../../actions/signIn";
+import { signIn } from "../../redux/user/user.actions";
 import useForm from "../../hooks/useForm";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
