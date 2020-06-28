@@ -17,6 +17,7 @@ const Header = ({ hidden, currentUser, history }) => (
       {/* <Logo className="logo" /> */}
     </Link>
     <div className="options">
+      {currentUser ? <p className="option">{currentUser.first_name} </p> : null}
       <Link className="option" to="/products">
         Products
       </Link>
@@ -39,6 +40,7 @@ const Header = ({ hidden, currentUser, history }) => (
           SIGN IN
         </Link>
       )}
+
       <CartIcon />
     </div>
     {hidden ? null : <CartDropdown />}
