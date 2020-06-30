@@ -53,8 +53,8 @@ function App() {
           <Route path="/checkout" component={Checkout} />
           <Route component={NotFound} />
         </Switch>
+        <Footer />
       </div>
-      <Footer />
     </BrowserRouter>
   );
 }

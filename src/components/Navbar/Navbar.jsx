@@ -17,11 +17,10 @@ const Header = ({ hidden, currentUser, history }) => (
       {/* <Logo className="logo" /> */}
     </Link>
     <div className="options">
-      {currentUser ? <p className="option">{currentUser.first_name} </p> : null}
       <Link className="option" to="/products">
         Products
       </Link>
-      <Link className="option" to="/shop">
+      <Link className="option" to="/about-us">
         About Us
       </Link>
       {currentUser ? (
@@ -33,11 +32,11 @@ const Header = ({ hidden, currentUser, history }) => (
             window.location.reload();
           }}
         >
-          SIGN OUT
+          Logout
         </Link>
       ) : (
         <Link className="option" to="/login">
-          SIGN IN
+          Login
         </Link>
       )}
 

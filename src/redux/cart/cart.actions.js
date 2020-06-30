@@ -18,3 +18,7 @@ export const decreaseItem = (item) => ({
   type: CartTypes.DECREASE_ITEM,
   payload: item,
 });
+
+export const resetCart = () => ({
+  type: CartTypes.RESET_CART,
+});

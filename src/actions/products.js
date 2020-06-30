@@ -94,6 +94,7 @@ export const getAllProducts = () => {
         headers: headers,
       })
       .then((products) => {
+        localStorage.setItem("products", JSON.stringify(products.data));
         dispatch(setProducts(products.data));
         dispatch(completedFetchingProducts());
       })

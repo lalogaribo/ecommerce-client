@@ -6,11 +6,12 @@ import { PersistGate } from "redux-persist/integration/react";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import Spinner from "./components/shared/Spinner";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      <PersistGate loading={<Spinner />} persistor={persistor}>
         <App />
       </PersistGate>
     </Provider>

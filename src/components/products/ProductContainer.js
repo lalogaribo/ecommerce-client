@@ -8,14 +8,18 @@ import "./products.css";
 
 function ProductContainer({ user, getAllProducts, productsStore }) {
   const [loadProducts, setLoadProducts] = useState(false);
+  const [allProducts, setProducts] = useState([]);
   const { products, isLoading } = productsStore;
 
   useEffect(() => {
-    if (productsStore.products.length === 0) {
-      setLoadProducts(true);
+    let productos = localStorage.getItem("products");
+    if (!productos) {
       getAllProducts();
+      setProducts(products);
+    } else {
+      setProducts(JSON.parse(productos));
     }
-  }, [loadProducts]);
+  }, []);
 
   return (
     <div className="main-container">
