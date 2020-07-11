@@ -47,7 +47,7 @@ const ProductDetail = (props) => {
           Add cart
         </button>
       )}
-      {props.cart.cart.length > 0 && <Link to="/cart">My cart</Link>}
+      {props.cart.cart.length > 0 && <Link to="/checkout">My cart</Link>}
     </div>
   );
 };

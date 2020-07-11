@@ -82,7 +82,6 @@ function ProductUpdateForm({ updateProduct, history, location }) {
       <div className="sidebar">
         <AdminSideBar />
       </div>
-      <h2>Product form</h2>
       <div className="container">
         <form onSubmit={handleSubmit} id="form-container">
           <input

@@ -7,15 +7,15 @@ import "react-toastify/dist/ReactToastify.css";
 import Register from "./components/login-signup/Register";
 import Login from "./components/login-signup/Login";
 import Home from "./pages/Home";
-import Navbar from "./components/shared/Navbar";
 import ProductContainer from "./components/products/ProductContainer";
 import ProductDetail from "./components/products/ProductDetail";
 import ProductForm from "./components/products/ProductForm";
 import ProductUpdateForm from "./components/products/ProducUpdateForm";
 import AboutUs from "./pages/AboutUs";
-import CartContainer from "./components/Cart/CartContainer";
 import Footer from "./components/shared/Footer";
 import NotFound from "./components/shared/NotFound";
+import Checkout from "./pages/checkout/Checkout.component";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
@@ -33,7 +33,6 @@ function App() {
           draggable
           pauseOnHover
         />
-        {/* Same as */}
         <ToastContainer />
         <Switch>
           <Route path="/" exact component={Home} />
@@ -47,11 +46,11 @@ function App() {
           />
           <Route path="/new-product" component={ProductForm} />
           <Route path="/about-us" component={AboutUs} />
-          <Route path="/cart" component={CartContainer} />
+          <Route path="/checkout" component={Checkout} />
           <Route component={NotFound} />
         </Switch>
+        <Footer />
       </div>
-      <Footer />
     </BrowserRouter>
   );
 }
