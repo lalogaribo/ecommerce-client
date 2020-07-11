@@ -10,7 +10,7 @@ import { cartReducer } from "../redux/cart/cartReducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart", "user"],
+  whitelist: ["cart", 'user'],
 };
 
 const middlewares = [thunk, logger];

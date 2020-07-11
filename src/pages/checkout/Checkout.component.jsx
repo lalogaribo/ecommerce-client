@@ -31,7 +31,7 @@ function Checkout({ cartItems, total }) {
       ))}
       <div className="total">TOTAL: ${total}</div>
       <hr />
-      <StripeButton price={total} />
+      {total ? <StripeButton price={total} /> : null}
     </div>
   );
 }

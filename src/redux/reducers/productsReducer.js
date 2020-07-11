@@ -38,8 +38,8 @@ export function productsReducer(state = initialState, action) {
       });
       return { ...state, isLoading: false, products: updatedProducts };
     case CREATE_PRODUCT:
-      let newState = [...state.products, action.product];
-      return { ...state, products: newState };
+      console.log([...state.products, action.product])
+      return { ...state, products: [...state.products, action.product] };
     case SET_CATEGORY:
       return { ...state, category: action.payload.category };
     case SET_MIN_PRICE:

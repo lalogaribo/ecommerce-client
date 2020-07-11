@@ -4,11 +4,9 @@ import signUpFormValidation from "../../services/signUpFormValidations";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import { signUp } from "../../actions/signIn";
-import { makeStyles } from "@material-ui/core/styles";
+// import { signUp } from "../../actions/signIn";
+import {signUp} from "../../redux/user/user.actions";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import "./login.css";
 
@@ -20,7 +18,7 @@ const INITIAL_STATE = {
   last_name: "",
 };
 
-function Register(props) {
+function Register({signUp, history}) {
   const {
     handleSubmit,
     handleChange,
@@ -39,13 +37,13 @@ function Register(props) {
       password_confirmation,
     } = values;
 
-    props.signUp(
+    signUp(
       first_name,
       last_name,
       email,
       password,
       password_confirmation,
-      props.history
+      history
     );
   }
   return (

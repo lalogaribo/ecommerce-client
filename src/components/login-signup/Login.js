@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import validateForm from "../../services/validateForm";
-// import { signIn } from "../../actions/signIn";
 import { signIn } from "../../redux/user/user.actions";
 import useForm from "../../hooks/useForm";
 import { connect } from "react-redux";
@@ -15,7 +14,7 @@ const INITIAL_STATE = {
   password: "",
 };
 
-function Login(props) {
+function Login({signIn, history}) {
   const {
     handleSubmit,
     handleChange,
@@ -26,7 +25,7 @@ function Login(props) {
   } = useForm(INITIAL_STATE, validateForm, submitLogin);
 
   function submitLogin() {
-    props.signIn(values.email, values.password, props.history);
+    signIn(values.email, values.password, history);
   }
   return (
     <div>

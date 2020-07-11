@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import validateProduct from "../../services/validateProduct";
 import useForm from "../../hooks/useForm";
 import Type from "../../services/Type";
-import { ToastContainer, toast } from "react-toastify";
 import { newProduct } from "../../actions/products";
 import "react-toastify/dist/ReactToastify.css";
 import "./products.css";

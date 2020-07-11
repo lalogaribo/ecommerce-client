@@ -4,17 +4,17 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { withRouter } from "react-router";
 import CartIcon from "../cart-icon/CartIcon";
-import { ReactComponent as Logo } from "../../assets/logo.svg";
 
 import "./navbar.styles.scss";
 import CartDropdown from "../cart-dropdown/CartDropdown";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { selectHidden } from "../../redux/cart/cart.selector";
+import {logOutUser} from "../../redux/user/user.actions";
 
-const Header = ({ hidden, currentUser, history }) => (
+const Header = ({ hidden, currentUser, history, logOutUser }) => (
   <div className="header">
     <Link className="logo-container" to="/">
-      {/* <Logo className="logo" /> */}
+      GOLD store
     </Link>
     <div className="options">
       <Link className="option" to="/products">
@@ -29,7 +29,8 @@ const Header = ({ hidden, currentUser, history }) => (
           onClick={() => {
             localStorage.removeItem("jwt");
             history.push("/login");
-            window.location.reload();
+            // window.location.reload();
+            logOutUser()
           }}
         >
           Logout
@@ -51,4 +52,8 @@ const mapStateToProps = createStructuredSelector({
   hidden: selectHidden,
 });
 
-export default withRouter(connect(mapStateToProps)(Header));
+const mapDispatchToProps = dispatch => ({
+  logOutUser: () => dispatch(logOutUser())
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
