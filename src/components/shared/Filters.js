@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from "react";
 import {connect} from "react-redux";
 import {
-	getProductsByMinPrice,
-	getProductsByMaxPrice,
 	getProductsByKeyword,
-} from "../../actions/products";
+	getProductsByMinPrice,
+	getProductsByMaxPrice
+} from "../../redux/products/products.actions";
 import TextField from "@material-ui/core/TextField";
 import {makeStyles} from "@material-ui/core/styles";
 import "./shared.css";
@@ -92,18 +92,18 @@ function Filters({
 	);
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getProductsByMinPrice: (price) => {
-			dispatch(getProductsByMinPrice(price));
-		},
-		getProductsByMaxPrice: (price) => {
-			dispatch(getProductsByMaxPrice(price));
-		},
-		getProductsByKeyword: (keyword) => {
-			dispatch(getProductsByKeyword(keyword));
-		}
-	};
-};
+// const mapDispatchToProps = (dispatch) => {
+// 	return {
+// 		getProductsByMinPrice: (price) => {
+// 			dispatch(getProductsByMinPrice(price));
+// 		},
+// 		getProductsByMaxPrice: (price) => {
+// 			dispatch(getProductsByMaxPrice(price));
+// 		},
+// 		getProductsByKeyword: (keyword) => {
+// 			dispatch(getProductsByKeyword(keyword));
+// 		}
+// 	};
+// };
 
-export default connect(null, mapDispatchToProps)(Filters);
+export default connect(null, {getProductsByMinPrice, getProductsByMaxPrice, getProductsByKeyword})(Filters);

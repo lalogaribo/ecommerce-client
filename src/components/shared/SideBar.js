@@ -8,12 +8,13 @@ import Filters from "./Filters";
 const SideBar = ({getProductsByCategory, user, isLogged}) => {
 	const [type, setType] = useState("");
 
-	useEffect(() => {
-		getProductsByCategory(type);
-	}, [type]);
+	// useEffect(() => {
+	// 	getProductsByCategory(type);
+	// }, [type]);
 
 	const handleChange = (e) => {
 		setType(e.target.name);
+		getProductsByCategory(type);
 	};
 	return (
 		<div className="sidebar">

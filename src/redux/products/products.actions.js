@@ -60,6 +60,7 @@ export const updatedCompleted = (id, data) => ({
 
 export const fetchAllProducts = () => async (dispatch) => {
 	dispatch(startFetchingProducts())
+
 	const products = await axios.get(`${URL}/products`, {
 		headers: headers,
 	})
@@ -70,6 +71,7 @@ export const fetchAllProducts = () => async (dispatch) => {
 
 export const fetchProductById = id => async (dispatch) => {
 	dispatch(startFetchingProducts())
+
 	const product = await axios.get(`${URL}/products/${id}`, {
 		headers: headers,
 	})
@@ -81,6 +83,7 @@ export const fetchProductById = id => async (dispatch) => {
 export const getProductsByCategory = (type) => async (dispatch) => {
 	dispatch(startFetchingProducts());
 	dispatch(setCategory(type));
+
 	const products = await axios.get(`${URL}/products/?type=${type}`, {
 		headers: headers,
 	})
@@ -91,6 +94,7 @@ export const getProductsByCategory = (type) => async (dispatch) => {
 export const getProductsByMinPrice = (price) => async (dispatch) => {
 	dispatch(startFetchingProducts());
 	dispatch(setMinPrice(price));
+
 	const products = await axios.get(`${URL}/products/?min_price=${price}`, {
 		headers: headers,
 	})
@@ -101,6 +105,7 @@ export const getProductsByMinPrice = (price) => async (dispatch) => {
 export const getProductsByMaxPrice = (price) => async (dispatch) => {
 	dispatch(startFetchingProducts());
 	dispatch(setMaxPrice(price));
+
 	const products = await axios.get(`${URL}/products/?max_price=${price}`, {
 		headers: headers,
 	})
@@ -111,6 +116,7 @@ export const getProductsByMaxPrice = (price) => async (dispatch) => {
 export const getProductsByKeyword = (keyword) => async (dispatch) => {
 	dispatch(startFetchingProducts());
 	dispatch(setKeyword(keyword));
+
 	const products = await axios.get(`${URL}/products/?keyword=${keyword}`, {
 		headers: headers,
 	})
