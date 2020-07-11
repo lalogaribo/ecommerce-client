@@ -8,7 +8,7 @@ const INITIAL_STATE = {
 	minPrice: 0,
 	maxPrice: 0,
 	keyword: "",
-	selectedProduct: {}
+	product: null
 };
 
 export const productsReducer = (state = INITIAL_STATE, action) => {
@@ -20,7 +20,7 @@ export const productsReducer = (state = INITIAL_STATE, action) => {
 		case ProductTypes.SET_PRODUCTS:
 			return {...state, products: action.products}
 		case ProductTypes.FETCH_PRODUCT_BY_ID:
-			return {...state, selectedProduct: action.payload}
+			return {...state, product: action.payload}
 		case ProductTypes.START_PRODUCT_UPDATE:
 			return {...state, isLoading: true};
 		case ProductTypes.UPDATE_PRODUCT_SUCCESS:

@@ -3,7 +3,7 @@ import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import userReducer from "../redux/user/userReducer";
-import { productsReducer } from "../redux/reducers/productsReducer";
+import {productsReducer} from "./products/productsReducer";
 import { cartReducer } from "../redux/cart/cartReducer";
 
 const persistConfig = {

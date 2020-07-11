@@ -12,6 +12,10 @@ export const setProducts = (products) => ({
 	products,
 });
 
+export const setProduct = product => ({
+	type: ProductTypes.FETCH_PRODUCT_BY_ID,
+	payload: product
+})
 export const startFetchingProducts = () => ({
 	type: ProductTypes.START_FETCHING_PRODUCTS
 })
@@ -62,6 +66,16 @@ export const fetchAllProducts = () => async (dispatch) => {
 	localStorage.setItem("products", JSON.stringify(products.data));
 	dispatch(setProducts(products.data));
 	dispatch(completedFetchingProducts());
+}
+
+export const fetchProductById = id => async (dispatch) => {
+	dispatch(startFetchingProducts())
+	const product = await axios.get(`${URL}/products/${id}`, {
+		headers: headers,
+	})
+	localStorage.setItem('product', JSON.stringify(product.data))
+	dispatch(setProduct(product.data))
+	dispatch(completedFetchingProducts())
 }
 
 export const getProductsByCategory = (type) => async (dispatch) => {
