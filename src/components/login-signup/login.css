@@ -14,9 +14,9 @@ button {
   box-shadow: 4px 5px #888888;
 }
 
-/* .form-container {
-  margin-right: 20px;
-} */
+ #form-container {
+  padding-right: 20px;
+}
 
 button:hover {
   cursor: pointer;

@@ -1,78 +1,60 @@
-import React, { useState } from "react";
-import validateForm from "../../services/validateForm";
+import React from "react";
 import { signIn } from "../../redux/user/user.actions";
-import useForm from "../../hooks/useForm";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 import "./login.css";
+import * as Yup from "yup";
 
-const INITIAL_STATE = {
-  email: "",
-  password: "",
-};
+import CustomForm from "../forms/CustomForm";
+import CustomFormField from "../forms/CustomFormField";
+import SubmitButton from "../forms/SubmitButton";
 
-function Login({signIn, history}) {
-  const {
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    values,
-    errors,
-    isSubmitting,
-  } = useForm(INITIAL_STATE, validateForm, submitLogin);
+const validSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Email is required")
+    .label("Email"),
+  password: Yup.string().required("Password is required").label("Password"),
+});
 
-  function submitLogin() {
-    signIn(values.email, values.password, history);
+function Login({ signIn, history }) {
+  function submitLogin(email, password) {
+    signIn(email, password, history);
   }
   return (
-    <div>
-      <Grid container spacing={2}>
-        <Grid item xs={9}>
-          <img
-            src={process.env.PUBLIC_URL + "/img/stickerbanner.png"}
-            className="login-img"
+    <div className="row">
+      <div className="col-8">
+        <img
+          src={process.env.PUBLIC_URL + "/img/stickerbanner.png"}
+          className="login-img"
+        />
+      </div>
+
+      <div className="col-4">
+        <CustomForm
+          validationSchema={validSchema}
+          onSubmit={(values) => submitLogin(values.email, values.password)}
+          initialValues={{ email: "", password: "" }}
+        >
+          <CustomFormField
+            placeholder="example@gmail.com"
+            name="email"
+            label="Email"
+            type="text"
+            autoComplete="off"
           />
-        </Grid>
-        <Grid item xs={3} style={{ margin: "auto" }}>
-          <Typography variant="subtitle1" gutterBottom>
-            <h1 className="header">Login</h1>
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="Email address"
-              name="email"
-              value={values.email}
-              className={errors.email && "error-input"}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              id="input"
-            />{" "}
-            <br />
-            {errors.email && <p className="error-text">{errors.email}</p>}
-            <input
-              type="password"
-              placeholder="Set password"
-              name="password"
-              className={errors.password && "error-input"}
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              id="input"
-            />{" "}
-            {errors.password && <p className="error-text">{errors.password}</p>}
-            <br />
-            You are new? <Link to="/signup">Create account</Link>
-            <br />
-            <button type="submit" value="Submit">
-              Submit
-            </button>
-          </form>
-        </Grid>
-      </Grid>
+          <CustomFormField
+            placeholder="********"
+            name="password"
+            label="Password"
+            type="password"
+            autoComplete="off"
+          />
+          You are new? <Link to="/signup">Create account</Link>
+          <SubmitButton title={"Login"} />
+        </CustomForm>
+      </div>
     </div>
   );
 }

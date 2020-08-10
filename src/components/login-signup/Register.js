@@ -1,132 +1,103 @@
 import React from "react";
-import useForm from "../../hooks/useForm";
-import signUpFormValidation from "../../services/signUpFormValidations";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-// import { signUp } from "../../actions/signIn";
-import {signUp} from "../../redux/user/user.actions";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
+import { signUp } from "../../redux/user/user.actions";
+import * as Yup from "yup";
 import "./login.css";
+import CustomForm from "../forms/CustomForm";
+import CustomFormField from "../forms/CustomFormField";
+import SubmitButton from "../forms/SubmitButton";
 
-const INITIAL_STATE = {
-  email: "",
-  password: "",
-  password_confirmation: "",
-  first_name: "",
-  last_name: "",
-};
-
-function Register({signUp, history}) {
-  const {
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    values,
-    errors,
-    isSubmitting,
-  } = useForm(INITIAL_STATE, signUpFormValidation, loginSubmit);
-
-  function loginSubmit() {
-    const {
-      first_name,
-      last_name,
-      email,
-      password,
-      password_confirmation,
-    } = values;
-
-    signUp(
-      first_name,
-      last_name,
-      email,
-      password,
-      password_confirmation,
-      history
-    );
-  }
+const validSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Invalid email")
+    .required("Email is required")
+    .label("Email"),
+  password: Yup.string().required("Password is required").label("Password"),
+  password_confirmation: Yup.string()
+    .required("Confirm password is required")
+    .label("Confirm password"),
+  first_name: Yup.string()
+    .required("First name is required")
+    .label("First Name"),
+  last_name: Yup.string().required("Last name is required").label("Last Name"),
+});
+function Register({ signUp, history }) {
   return (
-    <div>
-      <Grid container spacing={2}>
-        <Grid item xs={9}>
-          <img
-            src={process.env.PUBLIC_URL + "/img/stickerbanner.png"}
-            className="login-img"
+    <div className="row">
+      <div className="col-8">
+        <img
+          src={process.env.PUBLIC_URL + "/img/stickerbanner.png"}
+          className="login-img"
+        />
+      </div>
+      <div className="col-4">
+        <CustomForm
+          onSubmit={({
+            first_name,
+            last_name,
+            email,
+            password,
+            password_confirmation,
+          }) =>
+            signUp(
+              first_name,
+              last_name,
+              email,
+              password,
+              password_confirmation,
+              history
+            )
+          }
+          initialValues={{
+            first_name: "",
+            last_name: "",
+            email: "",
+            password: "",
+            password_confirmation: "",
+          }}
+          validationSchema={validSchema}
+        >
+          <CustomFormField
+            placeholder="Michael"
+            name="first_name"
+            label="First Name"
+            type="text"
+            autoComplete="off"
           />
-        </Grid>
-        <Grid item xs={3} style={{ margin: "auto" }}>
-          <Typography variant="subtitle1" gutterBottom>
-            <h2 className="header">Create account</h2>
-          </Typography>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              placeholder="First name"
-              name="first_name"
-              value={values.first_name}
-              className={errors.first_name && "error-input"}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />{" "}
-            {errors.first_name && (
-              <p className="error-text">{errors.first_name}</p>
-            )}
-            <input
-              type="text"
-              placeholder="Last name"
-              name="last_name"
-              value={values.last_name}
-              className={errors.last_name && "error-input"}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />{" "}
-            {errors.last_name && (
-              <p className="error-text">{errors.last_name}</p>
-            )}
-            <input
-              type="text"
-              placeholder="Email address"
-              name="email"
-              value={values.email}
-              className={errors.email && "error-input"}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />{" "}
-            {errors.email && <p className="error-text">{errors.email}</p>}
-            <input
-              type="password"
-              placeholder="Set password"
-              name="password"
-              className={errors.password && "error-input"}
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />{" "}
-            {errors.password && <p className="error-text">{errors.password}</p>}
-            <input
-              type="password"
-              placeholder="Confirm password"
-              name="password_confirmation"
-              className={errors.password_confirmation && "error-input"}
-              value={values.password_confirmation}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />{" "}
-            <br />
-            {errors.password_confirmation && (
-              <p className="error-text">{errors.password_confirmation}</p>
-            )}
-            <br />
-            <button type="submit" value="Submit">
-              Create account
-            </button>
-            <br />
-            Already have an account? <Link to="/login">Sign in instead</Link>
-            <br />
-          </form>
-        </Grid>
-      </Grid>
+          <CustomFormField
+            placeholder="hadamovish"
+            name="last_name"
+            label="Last Name"
+            type="text"
+            autoComplete="off"
+          />
+          <CustomFormField
+            placeholder="example@gmail.com"
+            name="email"
+            label="Email"
+            type="text"
+            autoComplete="off"
+          />
+          <CustomFormField
+            placeholder="********"
+            name="password"
+            label="Password"
+            type="password"
+            autoComplete="off"
+          />
+          <CustomFormField
+            placeholder="********"
+            name="password_confirmation"
+            label="Confirm password"
+            type="password"
+            autoComplete="off"
+          />
+          Already have an account? <Link to="/login">Sign in instead</Link>
+          <SubmitButton title={"Create account"} />
+        </CustomForm>
+      </div>
     </div>
   );
 }

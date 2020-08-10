@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,20 +22,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <div className="App">
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <ToastContainer />
         <Switch>
-          <Route path="/" exact component={Home} />
           <Route path="/signup" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/products" exact component={ProductContainer} />
@@ -47,7 +34,9 @@ function App() {
           <Route path="/new-product" component={ProductForm} />
           <Route path="/about-us" component={AboutUs} />
           <Route path="/checkout" component={Checkout} />
-          <Route component={NotFound} />
+          <Route path="/not-found" component={NotFound} />
+          <Route path="/" exact component={Home} />
+          <Redirect to="/not-found" />
         </Switch>
         <Footer />
       </div>
