@@ -64,14 +64,15 @@ const SideBar = ({getProductsByCategory, user, isLogged}) => {
 			<button className="sidebar-option" name="Pins" onClick={handleChange}>
 				Pins
 			</button>
-			{isLogged && user.is_admin && (
-				<>
-					<hr/>
-					<Link to="/new-product">
-						<button className="sidebar-option">Create product</button>
-					</Link>
-				</>
-			)}
+			{/*{isLogged && user.is_admin && (*/}
+			{/*	<>*/}
+			{/*		<hr/>*/}
+			{/*		<Link to="/new-product">*/}
+			{/*			<button className="sidebar-option">Create product</button>*/}
+			{/*		</Link>*/}
+			{/*	</>*/}
+			{/*)}*/}
+			<Link to='/new-product' className='sidebar-option'>Create product</Link>
 			<hr/>
 			<Filters/>
 		</div>

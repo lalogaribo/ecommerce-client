@@ -1,4 +1,5 @@
 export const updateProduct = (state, productId, data) => {
+	debugger
 	let updatedProducts = state.products.map(product => {
 		return product.id === productId ? product = data : product
 	})

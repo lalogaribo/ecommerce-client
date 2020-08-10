@@ -1,4 +1,5 @@
 import {ProductTypes} from "./ProductTyes";
+import Toastr from "../../services/Toastr";
 import axios from "axios";
 
 const URL = `http://localhost:3001/api/v1`;
@@ -72,12 +73,16 @@ export const fetchAllProducts = () => async (dispatch) => {
 export const fetchProductById = id => async (dispatch) => {
 	dispatch(startFetchingProducts())
 
-	const product = await axios.get(`${URL}/products/${id}`, {
-		headers: headers,
-	})
-	localStorage.setItem('product', JSON.stringify(product.data))
-	dispatch(setProduct(product.data))
-	dispatch(completedFetchingProducts())
+	try {
+		const product = await axios.get(`${URL}/products/${id}`, {
+			headers: headers,
+		})
+		localStorage.setItem('product', JSON.stringify(product.data))
+		dispatch(setProduct(product.data))
+		dispatch(completedFetchingProducts())
+	} catch (e) {
+		Toastr.toast.errorToast("🛑", e.message)
+	}
 }
 
 export const getProductsByCategory = (type) => async (dispatch) => {
@@ -122,4 +127,34 @@ export const getProductsByKeyword = (keyword) => async (dispatch) => {
 	})
 	dispatch(setProducts(products.data));
 	dispatch(completedFetchingProducts());
+}
+
+export const productCreation = (values, requestedHeaders, user_id) => async dispatch => {
+	try {
+		const {data} = await axios.post(`${URL}/users/${user_id}/products`, values, {
+			headers: requestedHeaders
+		})
+		dispatch(createProduct(data.product))
+		Toastr.toast.successToast("✅ Product Created successfully");
+	} catch (e) {
+		Toastr.toast.errorToast("🛑", e.message)
+	}
+}
+
+export const productUpdate = (values, requestedHeaders, user_id, product_id, history) => async dispatch => {
+	try {
+		const {data} = await axios.patch(`${URL}/users/${user_id}/products/${product_id}`, values, {
+			headers: requestedHeaders
+		})
+		debugger
+		dispatch(updatedCompleted(data.id, data))
+		history.push({
+			pathname: `/products/${product_id}`,
+			state: {
+				product: data.product
+			}
+		})
+	} catch (e) {
+		Toastr.toast.errorToast("🛑", e.message)
+	}
 }

@@ -4,13 +4,12 @@ import { withRouter } from "react-router";
 import validateProduct from "../../services/validateProduct";
 import useForm from "../../hooks/useForm";
 import Type from "../../services/Type";
-import { ToastContainer, toast } from "react-toastify";
-import { updateProduct } from "../../actions/products";
+import {productUpdate} from "../../redux/products/products.actions";
 import "react-toastify/dist/ReactToastify.css";
 import "./products.css";
 import AdminSideBar from "../shared/AdminSideBar";
 
-function ProductUpdateForm({ updateProduct, history, location }) {
+function ProductUpdateForm({ productUpdate, history, location, currentUser }) {
   const adminHeaders = {
     "Content-Type": "application/json",
     Accept: "application/json",
@@ -52,23 +51,12 @@ function ProductUpdateForm({ updateProduct, history, location }) {
     values,
     errors,
     isSubmitting,
-  } = useForm(INITIAL_STATE, validateProduct, productUpdate);
+  } = useForm(INITIAL_STATE, validateProduct, updateProduct);
 
-  function productUpdate() {
-    const { name, quantity, price, time_to_make, description, image } = values;
-    updateProduct(
-      name,
-      description,
-      price,
-      quantity,
-      time_to_make,
-      image,
-      typeId,
-      user_id,
-      id,
-      adminHeaders,
-      history
-    );
+  function updateProduct() {
+    values.type_id = typeId
+    console.log(values)
+    productUpdate(values, adminHeaders, currentUser, id, history)
   }
 
   function handleSelect(event) {
@@ -185,47 +173,14 @@ function ProductUpdateForm({ updateProduct, history, location }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateProduct: (
-      name,
-      description,
-      price,
-      quantity,
-      time_to_make,
-      image,
-      type_id,
-      user_id,
-      product_id,
-      requestHeaders,
-      history
-    ) => {
-      dispatch(
-        updateProduct(
-          name,
-          description,
-          price,
-          quantity,
-          time_to_make,
-          image,
-          type_id,
-          user_id,
-          product_id,
-          requestHeaders,
-          history
-        )
-      );
-    },
-  };
-};
-
 const mapStateToProps = (state) => {
   return {
     products: state.product,
+    currentUser: state.user,
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  {productUpdate}
 )(withRouter(ProductUpdateForm));
