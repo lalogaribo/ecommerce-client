@@ -14,8 +14,9 @@ button {
   box-shadow: 4px 5px #888888;
 }
 
- #form-container {
-  padding-right: 20px;
+ .form_cont {
+  padding-right: 30px;
+   padding-top: 10px;
 }
 
 button:hover {

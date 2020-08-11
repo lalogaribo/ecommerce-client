@@ -38,7 +38,6 @@ function App() {
           <Route path="/" exact component={Home} />
           <Redirect to="/not-found" />
         </Switch>
-        <Footer />
       </div>
     </BrowserRouter>
   );

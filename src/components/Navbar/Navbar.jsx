@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { withRouter } from "react-router";
@@ -9,42 +9,53 @@ import "./navbar.styles.scss";
 import CartDropdown from "../cart-dropdown/CartDropdown";
 import { selectCurrentUser } from "../../redux/user/user.selector";
 import { selectHidden } from "../../redux/cart/cart.selector";
-import {logOutUser} from "../../redux/user/user.actions";
+import { logOutUser } from "../../redux/user/user.actions";
 
 const Header = ({ hidden, currentUser, history, logOutUser }) => (
-  <div className="header">
-    <Link className="logo-container" to="/">
+  <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <Link className="navbar-brand" to="/">
       GOLD store
     </Link>
-    <div className="options">
-      <Link className="option" to="/products">
-        Products
-      </Link>
-      <Link className="option" to="/about-us">
-        About Us
-      </Link>
-      {currentUser ? (
-        <Link
-          className="option"
-          onClick={() => {
-            localStorage.removeItem("jwt");
-            history.push("/login");
-            // window.location.reload();
-            logOutUser()
-          }}
-        >
-          Logout
-        </Link>
-      ) : (
-        <Link className="option" to="/login">
-          Login
-        </Link>
-      )}
-
-      <CartIcon />
+    <button
+      className="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span className="navbar-toggler-icon" />
+    </button>
+    <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div className="navbar-nav">
+        <NavLink className="nav-item nav-link" to="/products">
+          Products
+        </NavLink>
+        <NavLink className="nav-item nav-link" to="/about-us">
+          About us
+        </NavLink>
+        {currentUser ? (
+          <Link
+            className="nav-item nav-link"
+            onClick={() => {
+              localStorage.removeItem("jwt");
+              window.location.reload("/");
+              logOutUser();
+            }}
+          >
+            Logout
+          </Link>
+        ) : (
+          <Link className="nav-item nav-link" to="/login">
+            Login
+          </Link>
+        )}
+      </div>
     </div>
+    <CartIcon />
     {hidden ? null : <CartDropdown />}
-  </div>
+  </nav>
 );
 
 const mapStateToProps = createStructuredSelector({
@@ -52,8 +63,8 @@ const mapStateToProps = createStructuredSelector({
   hidden: selectHidden,
 });
 
-const mapDispatchToProps = dispatch => ({
-  logOutUser: () => dispatch(logOutUser())
-})
+const mapDispatchToProps = (dispatch) => ({
+  logOutUser: () => dispatch(logOutUser()),
+});
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

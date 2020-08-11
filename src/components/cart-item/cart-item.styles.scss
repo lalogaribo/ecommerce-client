@@ -8,6 +8,10 @@
     width: 30%;
   }
 
+  &:hover{
+    transform: scale(1.25);
+  }
+
   .item-details {
     width: 70%;
     display: flex;

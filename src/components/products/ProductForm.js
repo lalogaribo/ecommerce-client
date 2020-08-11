@@ -1,176 +1,127 @@
-import React, {useState, useEffect} from "react";
-import {connect} from "react-redux";
-import validateProduct from "../../services/validateProduct";
-import useForm from "../../hooks/useForm";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+
 import Type from "../../services/Type";
-import {productCreation} from "../../redux/products/products.actions";
+import { productCreation } from "../../redux/products/products.actions";
 import "react-toastify/dist/ReactToastify.css";
 import "./products.css";
+import * as Yup from "yup";
 import AdminSideBar from "../shared/AdminSideBar";
+import CustomForm from "../forms/CustomForm";
+import CustomFormField from "../forms/CustomFormField";
+import CustomButton from "../custom-button/CustomButton";
+import Select from "../shared/select";
 
-const INITIAL_STATE = {
-	name: "",
-	quantity: "",
-	price: "",
-	time_to_make: "",
-	description: "",
-	image: "",
-};
+const validSchema = Yup.object().shape({
+  name: Yup.string()
+    .required("Name is required")
+    .min(5, "5 chars is the minimum value")
+    .max(255, "Only 255 characters are allowed")
+    .label("Name"),
+  description: Yup.string()
+    .required("Description is required")
+    .min(5, "5 chars is the minimum value")
+    .max(255, "Only 255 characters are allowed")
+    .label("Description"),
+  price: Yup.number("Only numbers are allowed")
+    .min(1, "Price must be at least 1")
+    .required("Price is required")
+    .label("Price"),
+  quantity: Yup.number("Only numbers are allowed")
+    .min(1, "Quantity must be at least 1")
+    .required("Quantity is required")
+    .label("Quantity"),
+  time_to_make: Yup.number("Only numbers are allowed")
+    .min(1, "Time to make must be at least 1")
+    .required("Time is required")
+    .label("Time"),
+  image: Yup.string().required("Image is required").label("Image"),
+});
 
-function ProductForm({productCreation, currentUser}) {
+function ProductForm({ productCreation, currentUser }) {
+  const adminHeaders = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: localStorage.getItem("jwt"),
+  };
 
-	const adminHeaders = {
-		"Content-Type": "application/json",
-		Accept: "application/json",
-		Authorization: localStorage.getItem("jwt"),
-	};
+  const [value, setValue] = useState("");
+  const [typeId, setTypeId] = useState("");
+  const [types, setTypes] = useState([]);
 
-	const [value, setValue] = useState("");
-	const [typeId, setTypeId] = useState("");
-	const [types, setTypes] = useState([]);
+  useEffect(() => {
+    Type.types.getTypes().then((types) => {
+      setTypes(types.data);
+    });
+  }, []);
 
-	useEffect(() => {
-		Type.types.getTypes().then((types) => {
-			setTypes(types.data);
-		});
-	}, []);
+  //
+  // function createProduct() {
+  //   values.type_id = typeId;
+  //   productCreation(values, adminHeaders, currentUser.user.id, adminHeaders);
+  // }
 
-	const {
-		handleSubmit,
-		handleChange,
-		handleBlur,
-		values,
-		errors,
-		isSubmitting,
-	} = useForm(INITIAL_STATE, validateProduct, createProduct);
+  function handleSelect(event) {
+    let selectedType = types.find((type) => type.name === event.target.value);
+    setTypeId(selectedType.id);
+    setValue(event.target.value);
+  }
 
-	function createProduct() {
-		values.type_id = typeId
-		productCreation(values, adminHeaders, currentUser.user.id, adminHeaders)
-	}
-
-	function handleSelect(event) {
-		let selectedType = types.find((type) => type.name === event.target.value);
-		setTypeId(selectedType.id);
-		setValue(event.target.value);
-	}
-
-	return (
-		<div className="main-container">
-			<div className="sidebar">
-				<AdminSideBar/>
-			</div>
-			<div className="container">
-				<form onSubmit={handleSubmit} id="form-container">
-					<input
-						type="text"
-						placeholder="Product name"
-						name="name"
-						value={values.name}
-						className={errors.name && "error-input"}
-						onChange={handleChange}
-						onBlur={handleBlur}
-						id="inputs"
-					/>{" "}
-					<br/>
-					{errors.name && <p className="error-text">{errors.name}</p>}
-					<textarea
-						type="text"
-						placeholder="Description..."
-						name="description"
-						value={values.description}
-						className={errors.description && "error-input"}
-						onChange={handleChange}
-						onBlur={handleBlur}
-						rows="4"
-						cols="50"
-					/>{" "}
-					<br/>
-					{errors.description && (
-						<p className="error-text">{errors.description}</p>
-					)}
-					<div className="options">
-						<input
-							type="text"
-							placeholder="Quantity..."
-							name="quantity"
-							value={values.quantity}
-							className={errors.quantity && "error-input"}
-							onChange={handleChange}
-							onBlur={handleBlur}
-						/>{" "}
-						<br/>
-						{errors.quantity && <p className="error-text">{errors.quantity}</p>}
-						<input
-							type="text"
-							placeholder="Time to make..."
-							name="time_to_make"
-							value={values.time_to_make}
-							className={errors.time_to_make && "error-input"}
-							onChange={handleChange}
-							onBlur={handleBlur}
-						/>{" "}
-						<br/>
-						{errors.time_to_make && (
-							<p className="error-text">{errors.time_to_make}</p>
-						)}{" "}
-						<br/>
-					</div>
-					<div className="options">
-						<input
-							type="text"
-							placeholder="Set price"
-							name="price"
-							value={values.price}
-							className={errors.price && "error-input"}
-							onChange={handleChange}
-							onBlur={handleBlur}
-						/>{" "}
-						<br/>
-						{errors.price && <p className="error-text">{errors.price}</p>}
-						<br/>
-						<input
-							type="text"
-							placeholder="Image..."
-							name="image"
-							value={values.image}
-							className={errors.image && "error-input"}
-							onChange={handleChange}
-							onBlur={handleBlur}
-						/>{" "}
-					</div>
-					{!types.length ? (<p>Loading categories...</p>)
-						: (
-							<>
-								<select
-									value={value}
-									onChange={handleSelect}
-									className="ui selection dropdown"
-								>
-									{types.map((type) => {
-										return <option value={type.name}>{type.name}</option>;
-									})}
-								</select>
-							</>
-						)
-					}
-					<br/>
-					{errors.image && <p className="error-text">{errors.image}</p>}
-					<button type="submit" class="button">
-						Create product
-					</button>
-				</form>
-			</div>
-		</div>
-	);
+  return (
+    <div className="main-container">
+      <div className="sidebar">
+        <AdminSideBar />
+      </div>
+      <div className="container">
+        <CustomForm
+          initialValues={{
+            name: "",
+            quantity: "",
+            price: "",
+            time_to_make: "",
+            description: "",
+            image: "",
+          }}
+          validationSchema={validSchema}
+        >
+          <CustomFormField name="name" placeholder="Cellphone" label="Name" />
+          <CustomFormField
+            name="description"
+            placeholder="Description..."
+            label="Description"
+          />
+          <CustomFormField
+            name="quantity"
+            placeholder="Quantity.."
+            label="Quantity"
+          />
+          <CustomFormField
+            name="time_to_make"
+            placeholder="2 days"
+            label="Estimate time"
+          />
+          <CustomFormField name="price" placeholder="$200.00" label="Price" />
+          {!types.length ? (
+            <p>Loading categories...</p>
+          ) : (
+            <Select options={types} />
+          )}
+          <CustomFormField
+            name="image"
+            placeholder="Upload image"
+            label="Image"
+          />
+          <CustomButton>Create product</CustomButton>
+        </CustomForm>
+      </div>
+    </div>
+  );
 }
 
-const mapStateToProps = (state, ownProps) => {
-	return {
-		currentUser: state.user,
-	};
+const mapStateToProps = (state) => {
+  return {
+    currentUser: state.user,
+  };
 };
 
-
-
-export default connect(mapStateToProps, {productCreation})(ProductForm);
+export default connect(mapStateToProps, { productCreation })(ProductForm);

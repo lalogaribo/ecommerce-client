@@ -7,7 +7,6 @@ import "./cart-icon.styles.scss";
 import { getItemCount } from "../../redux/cart/cart.selector";
 
 const CartIcon = ({ toggleCart, itemCount }) => {
-  console.log(itemCount);
   return (
     <div className="cart-icon" onClick={toggleCart}>
       <ShoppingCart className="shopping-cart" />
@@ -20,4 +19,4 @@ const mapStateToProps = createStructuredSelector({
   itemCount: getItemCount,
 });
 
-export default connect(mapStateToProps, {toggleCart})(CartIcon);
+export default connect(mapStateToProps, { toggleCart })(CartIcon);

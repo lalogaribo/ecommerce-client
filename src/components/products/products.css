@@ -1,105 +1,116 @@
 .main-container {
-  display: grid;
-  grid-template-areas: "sidebar content";
-  grid-template-columns: 300px auto;
-  gap: 5rem;
+    display: grid;
+    grid-template-areas: "sidebar content";
+    grid-template-columns: 300px auto;
+    gap: 5rem;
+    margin-right: 10px;
+    margin-bottom: 10px;
 
 }
 
 .card-items {
-  display: grid;
-  grid-area: content;
-  grid-template-columns: repeat(auto-fill, 300px)
+    display: grid;
+    grid-area: content;
+    grid-template-columns: repeat(auto-fill, 300px)
+}
+
+.card-item {
+    margin-bottom: 10px;
+    margin-right: 10px;
 }
 
 .sidebar {
-  grid-area: sidebar;
-  margin-left: 20px;
-  max-height: 700px;
+    grid-area: sidebar;
+    margin-left: 20px;
+    max-height: 700px;
 }
 
 .container {
-  grid-area: content;
+    grid-area: content;
 }
 
 .product-container {
-  width: 90%;
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: 10px;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 10px;
 }
 
-.form-container {
-  width: 50%;
-  height: 300px;
-  margin-left: 100px;
-  margin: auto;
-  margin-top: 170px;
+.product-information {
+    padding-right: 20px;
+    margin-top: 20px;
+    align-content: center;
+    text-align: left;
+}
+
+.imagen {
+    margin-top: 20px !important;
+    padding-left: 50px !important;
 }
 
 #inputs {
-  width: 700px;
-  height: 50px;
-  background: #F9F7F7;
-  border-radius: 10px;
-  margin-bottom: 5px;
+    width: 700px;
+    height: 50px;
+    background: #F9F7F7;
+    border-radius: 10px;
+    margin-bottom: 5px;
 }
 
 #search {
-  width: 100%;
-  padding: 5px;
+    width: 100%;
+    padding: 5px;
 }
 
 textarea {
-  width: 700px;
-  height: 100px;
+    width: 700px;
+    height: 100px;
 }
 
 .options {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    margin: 10px;
 }
 
 .options input {
-  margin: 10px;
+    margin: 10px;
 }
 
 .product-card {
-  margin: 10px;
+    margin: 10px;
 }
 
 #form-container {
-  width: 80%;
+    width: 80%;
 
 }
 
 .product-detail-container {
-  margin-left: 20px;
-  margin-top: 20px;
+    margin-left: 20px;
+    margin-top: 20px;
 }
 
 button:hover {
-  cursor: pointer;
-  background-color: #f5eeee8e;
+    cursor: pointer;
+    background-color: #f5eeee8e;
 }
 
 .error-input {
-  border: 2px solid red;
-  border-radius: 4px;
+    border: 2px solid red;
+    border-radius: 4px;
 }
 
 .error-text {
-  margin: 0.25em 0 0 0;
-  padding: 0;
-  color: red;
-  font-style: bold;
-  font-size: 1.2rem;
+    margin: 0.25em 0 0 0;
+    padding: 0;
+    color: red;
+    font-style: bold;
+    font-size: 1.2rem;
 }
 
 .span-title {
-  font-size: 10px;
+    font-size: 10px;
 }

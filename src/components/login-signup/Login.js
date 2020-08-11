@@ -23,7 +23,7 @@ function Login({ signIn, history }) {
     signIn(email, password, history);
   }
   return (
-    <div className="row">
+    <div className="row form_cont">
       <div className="col-8">
         <img
           src={process.env.PUBLIC_URL + "/img/stickerbanner.png"}
