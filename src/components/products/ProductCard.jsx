@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { ADD_ITEM_TO_CART } from "../../actiontypes";
 
 const ProductCard = (props) => {
   const { image, description, name, price, quantity, id } = props.product;
@@ -8,7 +9,18 @@ const ProductCard = (props) => {
   const { user: loggedUser } = props.current_user;
   const addToCart = () => {
     if (current_user.isLoggedIn && loggedUser.id !== props.product.user_id)
-      return <button disabled>Add to cart</button>;
+      return (
+        <button
+          onClick={() => {
+            props.dispatch({
+              type: ADD_ITEM_TO_CART,
+              payload: props.product,
+            });
+          }}
+        >
+          Add to cart
+        </button>
+      );
   };
   return (
     <div className="card card-item">

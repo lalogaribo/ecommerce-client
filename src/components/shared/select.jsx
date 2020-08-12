@@ -13,7 +13,7 @@ const Select = ({ name, label, options, error, ...rest }) => {
         className="form-control"
         onChange={handleChange(name)}
       >
-        <option value="" />
+        <option value="">Select a category</option>
         {options.map((option) => (
           <option key={option.id} value={option.id}>
             {option.name}

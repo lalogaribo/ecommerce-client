@@ -28,6 +28,10 @@
 .container {
     grid-area: content;
 }
+.sidebar-buttons{
+    width: 100%;
+    margin: 5px;
+}
 
 .product-container {
     width: 90%;

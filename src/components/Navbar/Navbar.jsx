@@ -8,10 +8,10 @@ import CartIcon from "../cart-icon/CartIcon";
 import "./navbar.styles.scss";
 import CartDropdown from "../cart-dropdown/CartDropdown";
 import { selectCurrentUser } from "../../redux/user/user.selector";
-import { selectHidden } from "../../redux/cart/cart.selector";
+import { selectHidden, getItemCount } from "../../redux/cart/cart.selector";
 import { logOutUser } from "../../redux/user/user.actions";
 
-const Header = ({ hidden, currentUser, history, logOutUser }) => (
+const Header = ({ hidden, currentUser, history, logOutUser, cartCount }) => (
   <nav className="navbar navbar-expand-lg navbar-light bg-light">
     <Link className="navbar-brand" to="/">
       GOLD store
@@ -53,7 +53,7 @@ const Header = ({ hidden, currentUser, history, logOutUser }) => (
         )}
       </div>
     </div>
-    <CartIcon />
+    {cartCount > 0 && <CartIcon />}
     {hidden ? null : <CartDropdown />}
   </nav>
 );
@@ -61,6 +61,7 @@ const Header = ({ hidden, currentUser, history, logOutUser }) => (
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   hidden: selectHidden,
+  cartCount: getItemCount,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
-
-import Type from "../../services/Type";
 import { productCreation } from "../../redux/products/products.actions";
 import "react-toastify/dist/ReactToastify.css";
 import "./products.css";
 import * as Yup from "yup";
+
 import AdminSideBar from "../shared/AdminSideBar";
 import CustomForm from "../forms/CustomForm";
 import CustomFormField from "../forms/CustomFormField";
-import CustomButton from "../custom-button/CustomButton";
 import Select from "../shared/select";
+import SubmitButton from "../forms/SubmitButton";
+const URL = `http://localhost:3001/api/v1`;
 
 const validSchema = Yup.object().shape({
   name: Yup.string()
@@ -50,16 +51,16 @@ function ProductForm({ productCreation, currentUser }) {
   const [types, setTypes] = useState([]);
 
   useEffect(() => {
-    Type.types.getTypes().then((types) => {
-      setTypes(types.data);
-    });
+    const getCategories = async () => {
+      try {
+        const { data } = await axios.get(`${URL}/types`);
+        setTypes(data.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getCategories();
   }, []);
-
-  //
-  // function createProduct() {
-  //   values.type_id = typeId;
-  //   productCreation(values, adminHeaders, currentUser.user.id, adminHeaders);
-  // }
 
   function handleSelect(event) {
     let selectedType = types.find((type) => type.name === event.target.value);
@@ -81,8 +82,12 @@ function ProductForm({ productCreation, currentUser }) {
             time_to_make: "",
             description: "",
             image: "",
+            type_id: "",
           }}
           validationSchema={validSchema}
+          onSubmit={(values) =>
+            productCreation(values, adminHeaders, currentUser.user.id)
+          }
         >
           <CustomFormField name="name" placeholder="Cellphone" label="Name" />
           <CustomFormField
@@ -104,14 +109,14 @@ function ProductForm({ productCreation, currentUser }) {
           {!types.length ? (
             <p>Loading categories...</p>
           ) : (
-            <Select options={types} />
+            <Select options={types} name="type_id" label="Category" />
           )}
           <CustomFormField
             name="image"
             placeholder="Upload image"
             label="Image"
           />
-          <CustomButton>Create product</CustomButton>
+          <SubmitButton title={"Create product"} />
         </CustomForm>
       </div>
     </div>
