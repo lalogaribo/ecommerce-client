@@ -25,7 +25,7 @@ function ProductContainer({ products, isLoading, fetchAllProducts }) {
       </div>
       {isLoading && <Spinner />}
       <div className="card-items">
-        {products.length &&
+        {products.length > 0 &&
           products.map((product) => {
             return (
               <Fragment key={product.id}>

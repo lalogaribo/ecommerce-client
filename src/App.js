@@ -3,7 +3,6 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import "bootstrap/dist/js/bootstrap";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Register from "./components/login-signup/Register";
@@ -17,6 +16,7 @@ import AboutUs from "./pages/AboutUs";
 import NotFound from "./components/shared/NotFound";
 import Checkout from "./pages/checkout/Checkout.component";
 import Navbar from "./components/Navbar/Navbar";
+import ProtectedRoute from "./components/shared/ProtectedRoute";
 
 function App() {
   return (
@@ -27,12 +27,16 @@ function App() {
           <Route path="/signup" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/products" exact component={ProductContainer} />
-          <Route path="/products/:id" exact component={ProductDetail} />
-          <Route
+          <ProtectedRoute
+            path="/products/:id"
+            exact
+            component={ProductDetail}
+          />
+          <ProtectedRoute
             path="/users/:user_id/products/:id"
             component={ProductUpdateForm}
           />
-          <Route path="/new-product" component={ProductForm} />
+          <ProtectedRoute path="/new-product" component={ProductForm} />
           <Route path="/about-us" component={AboutUs} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/not-found" component={NotFound} />
@@ -43,5 +47,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;

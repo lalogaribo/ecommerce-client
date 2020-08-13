@@ -29,7 +29,7 @@ const SideBar = ({ getProductsByCategory, user, isLogged }) => {
 
   return (
     <div className="sidebar">
-      {category.length &&
+      {category.length > 0 &&
         category.map((category) => {
           return (
             <Fragment key={category.id}>
