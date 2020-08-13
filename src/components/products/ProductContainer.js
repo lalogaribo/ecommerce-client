@@ -23,8 +23,8 @@ function ProductContainer({ products, isLoading, fetchAllProducts }) {
       <div className="sidebar">
         <SideBar />
       </div>
+      {isLoading && <Spinner />}
       <div className="card-items">
-        {isLoading && <Spinner />}
         {products.length &&
           products.map((product) => {
             return (

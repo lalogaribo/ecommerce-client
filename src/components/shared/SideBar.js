@@ -23,7 +23,7 @@ const SideBar = ({ getProductsByCategory, user, isLogged }) => {
     getCategories();
   }, []);
   const handleChange = (e) => {
-    setTypes(e.target.name);
+    setTypes(e.target.value);
     getProductsByCategory(type);
   };
 
@@ -33,7 +33,12 @@ const SideBar = ({ getProductsByCategory, user, isLogged }) => {
         category.map((category) => {
           return (
             <Fragment key={category.id}>
-              <button className="sidebar-buttons" onClick={handleChange}>
+              <button
+                className="sidebar-buttons"
+                name={category.name}
+                onClick={handleChange}
+                value={category.id}
+              >
                 {category.name}
               </button>
             </Fragment>
@@ -41,7 +46,6 @@ const SideBar = ({ getProductsByCategory, user, isLogged }) => {
         })}
       {isLogged && user.is_admin && (
         <>
-          <hr />
           <Link to="/new-product">
             <button className="sidebar-option">Create product</button>
           </Link>

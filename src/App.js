@@ -2,8 +2,10 @@ import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
+import "bootstrap/dist/js/bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import Register from "./components/login-signup/Register";
 import Login from "./components/login-signup/Login";
 import Home from "./pages/Home";
@@ -12,7 +14,6 @@ import ProductDetail from "./components/products/ProductDetail";
 import ProductForm from "./components/products/ProductForm";
 import ProductUpdateForm from "./components/products/ProducUpdateForm";
 import AboutUs from "./pages/AboutUs";
-import Footer from "./components/shared/Footer";
 import NotFound from "./components/shared/NotFound";
 import Checkout from "./pages/checkout/Checkout.component";
 import Navbar from "./components/Navbar/Navbar";
