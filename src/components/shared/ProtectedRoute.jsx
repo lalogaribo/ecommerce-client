@@ -16,7 +16,7 @@ const ProtectedRoute = (props) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
     user: state.user.user,
   };

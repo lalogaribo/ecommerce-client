@@ -1,7 +1,7 @@
 import React from "react";
 import { signIn } from "../../redux/user/user.actions";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
 import "./login.css";
 import * as Yup from "yup";
@@ -18,10 +18,11 @@ const validSchema = Yup.object().shape({
   password: Yup.string().required("Password is required").label("Password"),
 });
 
-function Login({ signIn, history }) {
+function Login({ signIn, history, user }) {
   function submitLogin(email, password) {
     signIn(email, password, history);
   }
+  if (user) return <Redirect to="/" />;
   return (
     <div className="row form_cont">
       <div className="col-8">
@@ -67,4 +68,10 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(Login));
+const mapStateToProps = (state) => {
+  return {
+    user: state.user.user,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
