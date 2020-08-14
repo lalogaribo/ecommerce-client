@@ -3,13 +3,10 @@
   display: flex;
   height: 80px;
   margin-bottom: 15px;
+  cursor: pointer;
 
   img {
     width: 30%;
-  }
-
-  &:hover{
-    transform: scale(1.25);
   }
 
   .item-details {

@@ -23,9 +23,9 @@ const ProductCard = (props) => {
       );
   };
   return (
-    <div className="card card-item">
+    <div className="card card-item  hvr-rotate">
       <img className="card-img-top" src={image} alt="Card image cap" />
-      <div className="card-body">
+      <div className="card-body ">
         <Link to={`/products/${id}`}>{name}</Link>
         <p className="card-text">{description}</p>
         <p style={{ textDecoration: quantity >= 1 ? "none" : "line-through" }}>

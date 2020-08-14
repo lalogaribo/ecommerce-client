@@ -17,6 +17,7 @@
 .card-item {
     margin-bottom: 10px;
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .sidebar {
